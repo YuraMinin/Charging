@@ -1,0 +1,31 @@
+<div class="row">
+  <div *ngIf="!data.userSubscription[id - 1].status">
+    <button type="button" class="btn btn-outline-success btn-sm" (click)="changeStatus()"
+            [disabled]="data.lookUser.blocked">ON</button>
+  </div>
+  <div *ngIf="data.userSubscription[id - 1].status">
+    <button type="button" class="btn btn-outline-danger btn-sm" (click)="changeStatus()"
+            [disabled]="data.lookUser.blocked">OFF</button>
+  </div>
+
+
+  <div class="d-inline-flex" *ngIf="!data.userSubscription[id - 1].status">
+    <p class="text-black-50 ml-3 font-italic font-weight-bold mr-2">Period:</p>
+    <div class="dropdown dropright">
+      <button type="button" class="btn btn-outline-dark dropdown-toggle btn-sm" data-toggle="dropdown"
+              [disabled]="data.lookUser.blocked">
+        {{getPeriodOn()}} min
+      </button>
+      <div class="dropdown-menu dropdown-menu-sm-left">
+        <a class="dropdown-item" (click)="setPeriodOn(1)">1 min</a>
+        <a class="dropdown-item" (click)="setPeriodOn(5)">5 min</a>
+        <a class="dropdown-item" (click)="setPeriodOn(10)">10 min</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+

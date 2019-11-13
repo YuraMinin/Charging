@@ -1,0 +1,26 @@
+<!--NavBar-->
+<nav class="jnavbar navbar-expand-sm bg-danger navbar-dark">
+  <a class="navbar-brand ml-2" href="">Simple Charging</a>
+</nav>
+
+<!--Sign In-->
+<div class="d-flex flex-row-reverse">
+  <div class="card m-5">
+    <div class="card-body">
+      <p><input [(ngModel)]="login" class="form-control" type="text" name="login" placeholder="Login"></p>
+      <p><input [(ngModel)]="passwd" class="form-control" type="password" name="password" placeholder="Password"></p>
+      <div *ngIf="emptyField">
+        <p class="text-danger small font-weight-bold">Enter the login and password</p>
+      </div>
+      <div *ngIf="failedData">
+        <p class="text-danger small font-weight-bold">Invalid login or password</p>
+      </div>
+      <div class="btn-group">
+        <button type="submit" class="btn btn-success btn-sm ml-1" (click)="auth()">Submit</button>
+        <!--Register Button-->
+        <app-register></app-register>
+      </div>
+    </div>
+  </div>
+</div>
+
