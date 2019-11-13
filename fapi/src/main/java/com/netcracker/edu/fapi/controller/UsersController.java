@@ -35,7 +35,7 @@ public class UsersController {
 
     //Create User
     @PostMapping
-    public Integer createUser(@Valid @RequestBody User user) {
+    public Integer createUser(@Valid @RequestBody Identification user) {
         return data.addUser(user);
     }
 
@@ -48,10 +48,6 @@ public class UsersController {
     public Integer authorizationUser(@RequestBody Identification user) {
         return data.authorizationUser(user.login, user.password);
     }
-
-
-
-
 
 
 }

@@ -47,13 +47,14 @@ public class Datasource {
         }
 
 
-       for (int i = 0; i < users.get(id - 1).getUserProducts().size(); i++) {
+        for (int i = 0; i < users.get(id - 1).getUserProducts().size(); i++) {
 
             int nProduct = users.get(id - 1).getUserProducts().get(i).getId() - 1;
             allProduct.get(nProduct).setStatusProduct();
-       }
+        }
 
         return allProduct;
+
     }
 
     // Get All Products
@@ -63,21 +64,22 @@ public class Datasource {
 
 
     // Create User (POST method)
-    public int addUser(User user) {
+    public int addUser(Identification user) {
        boolean loginEqual = false;
 
         for (User item: users) {
-            if (user.getLogin().equals(item.getLogin())) {
+            if (user.login.equals(item.getLogin())) {
                 loginEqual = true;
                 break;
             }
         }
 
         if (!loginEqual) {
-            int newId = users.size() + 1;
-            users.add(user);
-            users.get(newId).setId(newId);
-            return newId;
+            int newId = users.size();
+            User newUser = new User(user.firstName, user.lastName, user.login, user.password, user.numberCard);
+            users.add(newUser);
+            users.get(newId).setId(newId + 1);
+            return newId + 1;
         } else {
             return -1; // Login failed
         }
@@ -109,12 +111,16 @@ public class Datasource {
     }
 
     public void modifySubscription(int id, Product product) {
+
         if (product.isStatus().equals(true)) users.get(id - 1).addProduct(product);
-        else users.get(id - 1).deleteProduct(product.getId());
+        else {
+            users.get(id - 1).deleteProduct(product.getId());
+            System.out.println("Delete");
+
+        }
     }
 
     public boolean transferMoney(int id, Identification user) {
-        return true;
-       // return this.users.get(id - 1).addMoney(user.numberCard, user.amountTransfer);
+        return this.users.get(id - 1).addMoney(user.numberCard, user.amountTransfer);
     }
 }

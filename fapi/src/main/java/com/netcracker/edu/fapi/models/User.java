@@ -6,7 +6,7 @@ import java.util.List;
 public class User {
 
     private int id;
-    public String firstName;
+    private String firstName;
     private String lastName;
     private String login;
     private String password;
@@ -96,7 +96,4 @@ public class User {
         this.blocked = blocked;
     }
 
-    public void invertBlocked() {
-        this.blocked = !this.blocked;
-    }
 }
