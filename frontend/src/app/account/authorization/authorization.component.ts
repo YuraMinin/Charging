@@ -26,9 +26,9 @@ export class AuthorizationComponent implements OnInit {
 
     if (this.login != null && this.passwd != null) {
       // Create User for api
-      const user: UserSC = new UserSC();
-      user.login = this.login;
-      user.password = this.passwd;
+      const user: UserSC = new UserSC(null, null, this.login, this.passwd, null);
+      /*user.login = this.login;
+      user.password = this.passwd;*/
 
       this.date.authorizationUser(user).subscribe((id: number) => {
         if (id === 0) {
@@ -36,8 +36,6 @@ export class AuthorizationComponent implements OnInit {
         } else if (id === -1) {
           this.failedData = true;
         } else if (id > 0) {
-          // console.log(this.date.newUser.firstName);
-          // this.date.id = id;
           this.date.setUpdate();
           this.router.navigateByUrl('/account');
         }

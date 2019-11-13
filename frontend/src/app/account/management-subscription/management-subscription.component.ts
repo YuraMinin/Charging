@@ -28,15 +28,22 @@ export class ManagementSubscriptionComponent implements OnInit {
     this.data.getUser().getProducts()[this.id - 1].Period = this.periodOn;
     this.data.getUser().setStatus(this.id);
     this.periodOn = 1;*/
-    let subscription: SubscriptionSC;
+    let subscription: SubscriptionSC = new SubscriptionSC()
+    subscription.id = this.data.userSubscription[this.id - 1].id;
+    subscription.status = this.data.userSubscription[this.id - 1].status;
+    subscription.period = this.data.userSubscription[this.id - 1].period;
+    subscription.name = this.data.userSubscription[this.id - 1].name;
+    subscription.cost = this.data.userSubscription[this.id - 1].cost;
     subscription = this.data.userSubscription[this.id - 1];
     if (subscription.status === true) {
       this.periodOn = 0;
     }
     subscription.period = this.periodOn;
     subscription.status = !subscription.status;
+    // this.data.userSubscription = null;
+    this.data.userSubscription[this.id - 1] = subscription;
     this.data.modifyUserSubscription(subscription);
-    console.log('id: ', this.id, ' status: ', subscription.status);
+    // console.log('id: ', this.id, ' status: ', subscription.status);
   }
 
   setPeriodOn(period: number) {

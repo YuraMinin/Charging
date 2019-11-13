@@ -31,10 +31,8 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
 
   // Get Products with pagination
   get products(): SubscriptionSC[] {
-
-    const pageIndex = (this.selectedPage - 1) * this.productPerPage;
     this.subscriptionStorage.add(this.data.getUserSubscriptionHttp(this.data.idUser).subscribe((subscriptions: SubscriptionSC[]) => {
-      this.subscriptions = subscriptions.slice(pageIndex, pageIndex + this.productPerPage);
+      this.subscriptions = subscriptions;
       this.pageNumbers = Array(Math.ceil(subscriptions.length / this.productPerPage))
         .fill(0).map((x, i) => i + 1);
     }));
