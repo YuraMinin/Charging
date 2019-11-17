@@ -21,7 +21,7 @@
       <td>{{user.balance}}</td>
       <td><p [class]= "getClassMap(user.id)"> {{userStatus(user.id)}} </p></td>
       <td><button type="button" class="btn btn-outline-dark btn-sm" [routerLink] ="['/products', user.id]">
-        Subscription User
+        User Subscription
       </button></td>
       <td><app-management-users [idUser]="user.id"></app-management-users></td>
     </tr>

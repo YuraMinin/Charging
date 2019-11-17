@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../model/user.service';
 import {UserSC} from '../../model/UserSC';
+import {$} from 'protractor';
 
 
 @Component({
@@ -11,7 +12,6 @@ import {UserSC} from '../../model/UserSC';
     styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-
     public firstName: string;
     public lastName: string;
     public numberCard: string;
@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
     public canRegister: boolean;
     public failedLogin = false;
     myForm: FormGroup;
+
 
     constructor(private router: Router, private date: UserService) {
         this.myForm = new FormGroup({

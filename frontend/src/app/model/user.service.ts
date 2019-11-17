@@ -35,6 +35,7 @@ export class UserService {
     private updateUsers = true;
     private updateUserID = true;
     private updateSubscription = true;
+    private updateCount = true;
 
     constructor(private http: HttpService, private httpClient: HttpClient, private router: Router) {
     }
@@ -93,6 +94,7 @@ export class UserService {
         this.updateUsers = true;
         this.updateUserID = true;
         this.updateSubscription = true;
+        this.updateCount = true;
     }
 
     // Modify information on user_ID (E_wallet, Blocked user)
@@ -149,5 +151,32 @@ export class UserService {
                 this.transfer.next(transfer);
             });
         return this.transfer.asObservable();
+    }
+
+    // Pagination
+    public countSubscription(id: number): Observable<number> {
+        if (this.updateCount) {
+            this.subsID = new ReplaySubject(1);
+            this.httpClient.get<number>('http://localhost:8080/api/users/' + id + '/products/count').subscribe(
+                (count: number) => {
+                    this.subsID.next(count);
+                });
+        }
+        this.updateCount = false;
+        return this.subsID.asObservable();
+    }
+
+    public getUserSubscription(id: number, offset: number, limit: number): Observable<SubscriptionSC[]> {
+        if (!this.subscription || this.updateSubscription || id !== this.idUser) {
+            this.subscription = new ReplaySubject(1);
+            this.http.get('http://localhost:8080/api/users/' + id + '/products/offset=' + offset + '&limit=' + limit)
+                .subscribe((subscription: SubscriptionSC[]) => {
+                this.userSubscription = subscription;
+                this.subscription.next(subscription);
+            });
+        }
+        this.idUser = id;
+        this.updateSubscription = false;
+        return this.subscription.asObservable();
     }
 }

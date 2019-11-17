@@ -22,6 +22,19 @@ public class ProductsController {
         return data.getAllProductUser(id);
     }
 
+    @GetMapping("/{id}/products/offset={offset}&limit={limit}")
+    public List<Product> getUserProducts(@PathVariable("id") int id, @PathVariable("offset") int offset,
+                                         @PathVariable("limit") int limit) {
+        int count = offset + limit;
+        if (count > data.getAllProductUser(id).size()) count = data.getAllProductUser(id).size();
+        return data.getAllProductUser(id).subList(offset, count);
+    }
+
+    @GetMapping("/{id}/products/count")
+    public int countProducts(@PathVariable Integer id) {
+        return data.getAllProductUser(id).size();
+    }
+
     // Add new product
     @PostMapping("/products")
     public void addNewProduct(@RequestBody Product product) {

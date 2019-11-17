@@ -1,86 +1,92 @@
 <!--Register Users-->
 
 <button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#myModal">
-  Register
+    Register
 </button>
 
 
 <!-- Register -->
 <div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-      <!-- Register Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Register</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
+            <!-- Register Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Register</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
 
-      <form [formGroup]="myForm" novalidate (ngSubmit)="onSubmit()">
-        <!-- Register body -->
-        <div class="modal-body">
-
-
-          <input type="text" name="firstname" formControlName="firstName" placeholder="First Name"
-                 class="form-control form-control-sm my-3">
-          <div *ngIf="myForm.controls['firstName'].invalid && myForm.controls['firstName'].touched">
-            <p class="text-danger font-weight-bold ml-1 small"> Enter a First Name</p>
-          </div>
-
-          <input type="text" name="lname" formControlName="lastName" placeholder="Last Name"
-                 class="form-control form-control-sm my-3">
-          <div *ngIf="myForm.controls['lastName'].invalid && myForm.controls['lastName'].touched">
-            <p class="text-danger font-weight-bold small ml-1"> Enter a Last Name</p>
-          </div>
-
-          <input type="text" id="card" name="card" formControlName="numCard" placeholder="Number of card"
-                 class="form-control form-control-sm my-3">
-          <div *ngIf="myForm.controls['numCard'].invalid && myForm.controls['numCard'].touched">
-            <p class="text-danger font-weight-bold small ml-1"> Card number entered incorrectly, example: **** **** **** ****</p>
-          </div>
-
-          <input type="email" name="email" formControlName="userEmail" placeholder="Email"
-                 class="form-control form-control-sm my-3">
-          <div *ngIf="myForm.controls['userEmail'].invalid && myForm.controls['userEmail'].touched">
-            <p class="text-danger font-weight-bold small ml-1"> Email entered incorrectly, example: example@mail.com</p>
-          </div>
-
-          <input type="text" name="login" formControlName="userLogin" placeholder="Login"
-                 class="form-control form-control-sm my-3">
-          <div *ngIf="myForm.controls['userLogin'].invalid && myForm.controls['userLogin'].touched">
-            <p class="text-danger font-weight-bold small ml-1"> Enter a Login </p>
-          </div>
+            <form [formGroup]="myForm" novalidate (ngSubmit)="onSubmit()">
+                <!-- Register body -->
+                <div class="modal-body">
 
 
-          <input type="password" formControlName="userPassword" name="passwd" placeholder="Password"
-                 class="form-control form-control-sm my-3">
-          <div *ngIf="myForm.controls['userPassword'].invalid && myForm.controls['userPassword'].touched">
-            <p class="text-danger font-weight-bold small ml-1"> Enter a Password</p>
-          </div>
+                    <input type="text" name="firstname" formControlName="firstName" placeholder="First Name"
+                           class="form-control form-control-sm my-3">
+                    <div *ngIf="myForm.controls['firstName'].invalid && myForm.controls['firstName'].touched">
+                        <p class="text-danger font-weight-bold ml-1 small"> Enter a First Name</p>
+                    </div>
 
-          <input type="password" formControlName="reUserPassword" name="passwd1" placeholder="Re-entry Password"
-                 class="form-control form-control-sm my-3">
+                    <input type="text" name="lname" formControlName="lastName" placeholder="Last Name"
+                           class="form-control form-control-sm my-3">
+                    <div *ngIf="myForm.controls['lastName'].invalid && myForm.controls['lastName'].touched">
+                        <p class="text-danger font-weight-bold small ml-1"> Enter a Last Name</p>
+                    </div>
+
+                    <input type="text" id="card" name="card" formControlName="numCard" placeholder="Number of card"
+                           class="form-control form-control-sm my-3">
+                    <div *ngIf="myForm.controls['numCard'].invalid && myForm.controls['numCard'].touched">
+                        <p class="text-danger font-weight-bold small ml-1"> Card number entered incorrectly, example:
+                            **** **** **** ****</p>
+                    </div>
+
+                    <input type="email" name="email" formControlName="userEmail" placeholder="Email"
+                           class="form-control form-control-sm my-3">
+                    <div *ngIf="myForm.controls['userEmail'].invalid && myForm.controls['userEmail'].touched">
+                        <p class="text-danger font-weight-bold small ml-1"> Email entered incorrectly, example:
+                            example@mail.com</p>
+                    </div>
+
+                    <input type="text" name="login" formControlName="userLogin" placeholder="Login"
+                           class="form-control form-control-sm my-3">
+                    <div *ngIf="myForm.controls['userLogin'].invalid && myForm.controls['userLogin'].touched">
+                        <p class="text-danger font-weight-bold small ml-1"> Enter a Login </p>
+                    </div>
 
 
-          <div *ngIf="passwordOK(myForm.controls['userPassword'].value, myForm.controls['reUserPassword'].value)">
-            <p class="text-danger font-weight-bold small ml-1"> Password dont equals</p>
-          </div>
+                    <input type="password" formControlName="userPassword" name="passwd" placeholder="Password"
+                           class="form-control form-control-sm my-3">
+                    <div *ngIf="myForm.controls['userPassword'].invalid && myForm.controls['userPassword'].touched">
+                        <p class="text-danger font-weight-bold small ml-1"> Enter a Password</p>
+                    </div>
 
-          <div *ngIf="failedLogin"><p class="text-danger font-weight-bold small ml-1"> Enter a different login</p></div>
-        </div>
-      </form>
+                    <input type="password" formControlName="reUserPassword" name="passwd1"
+                           placeholder="Re-entry Password"
+                           class="form-control form-control-sm my-3">
 
-      <!-- Register footer -->
-      <div class="modal-footer">
-        <button type="submit" [disabled]="!myForm.valid || !canRegister" [class]="getClassMap()"
-        (click)="Register(myForm.controls['firstName'].value, myForm.controls['lastName'].value,
+                    <script>$('#myModal').modal('hide')</script>
+
+                    <div *ngIf="passwordOK(myForm.controls['userPassword'].value, myForm.controls['reUserPassword'].value)">
+                        <p class="text-danger font-weight-bold small ml-1"> Password dont equals</p>
+                    </div>
+
+                    <div *ngIf="failedLogin"><p class="text-danger font-weight-bold small ml-1"> Enter a different
+                        login</p></div>
+                </div>
+            </form>
+
+            <!-- Register footer -->
+            <div class="modal-footer">
+                <button type="submit" [disabled]="!myForm.valid || !canRegister" [class]="getClassMap()"
+                        (click)="Register(myForm.controls['firstName'].value, myForm.controls['lastName'].value,
                 myForm.controls['userLogin'].value, myForm.controls['userPassword'].value,
-                myForm.controls['numCard'].value)">
-          OK</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+                myForm.controls['numCard'].value)" data-dismiss ="modal">
+                    OK
+                </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 
