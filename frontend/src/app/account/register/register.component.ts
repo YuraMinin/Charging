@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {UserService} from '../../model/user.service';
-import {UserSC} from '../../model/UserSC';
+import {Users} from '../../model/Users';
 import {$} from 'protractor';
 
 
@@ -61,7 +61,7 @@ export class RegisterComponent implements OnInit {
         this.newLogin = String(Login);
         this.newPassword = String(passw);
         this.numberCard = String(numCard);
-        const newUser: UserSC = new UserSC(this.firstName, this.lastName, this.newLogin, this.newPassword, this.numberCard);
+        const newUser: Users = new Users(this.firstName, this.lastName, this.newLogin, this.newPassword, this.numberCard);
         this.date.registerUser(newUser).subscribe((id: number) => {
             if (id === -1) {
                 this.failedLogin = true;

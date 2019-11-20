@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../model/user.service';
-import {UserSC} from '../../model/UserSC';
+import {Users} from '../../model/Users';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -11,14 +11,14 @@ import {Subscription} from 'rxjs';
 export class AdminComponent implements OnInit, OnDestroy {
 
   nameComponent = 'Admin Account';
-  private users: UserSC[];
+  private users: Users[];
   private usersStorage: Subscription = new Subscription();
 
   constructor(private date: UserService) {
   }
 
   ngOnInit() {
-    this.usersStorage.add(this.date.getUsersHttp().subscribe((users: UserSC[]) => {
+    this.usersStorage.add(this.date.getUsersHttp().subscribe((users: Users[]) => {
       this.users = users;
     }));
   }

@@ -1,6 +1,6 @@
-import {SubscriptionSC} from './SubscriptionSC';
+import {Subscriptions} from './Subscriptions';
 
-export class UserSC {
+export class Users {
     public id: number;
     public firstName: string;
     public lastName: string;
@@ -10,7 +10,7 @@ export class UserSC {
     public password;
     public numberCard = '';
     public amountTransfer: number;
-    public userProducts: SubscriptionSC[];
+    public userProducts: Subscriptions[];
 
     constructor(firstName: string, lastName: string, login: string, password: string, numberCard: string) {
         this.firstName = firstName;

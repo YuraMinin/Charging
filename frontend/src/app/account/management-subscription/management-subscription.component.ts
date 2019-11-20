@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../../model/user.service';
-import {subscribeOn} from 'rxjs/operators';
-import {SubscriptionSC} from '../../model/SubscriptionSC';
+import {Subscriptions} from '../../model/Subscriptions';
 
 @Component({
   selector: 'app-management-subscription',
@@ -14,6 +13,7 @@ export class ManagementSubscriptionComponent implements OnInit {
   }
 
   @Input() id: number;
+  // @Input() subscription: Subscriptions;
   private periodOn = 1;
 
   ngOnInit() {
@@ -22,28 +22,20 @@ export class ManagementSubscriptionComponent implements OnInit {
 
   // Change products status
   changeStatus(): void {
-    /*if (this.data.getUser().getProducts()[this.id - 1].StatusSubscriptionBool === true) {
-      this.periodOn = 0;
-    }
-    this.data.getUser().getProducts()[this.id - 1].Period = this.periodOn;
-    this.data.getUser().setStatus(this.id);
-    this.periodOn = 1;*/
-    let subscription: SubscriptionSC = new SubscriptionSC()
-    subscription.id = this.data.userSubscription[this.id - 1].id;
-    subscription.status = this.data.userSubscription[this.id - 1].status;
-    subscription.period = this.data.userSubscription[this.id - 1].period;
-    subscription.name = this.data.userSubscription[this.id - 1].name;
-    subscription.cost = this.data.userSubscription[this.id - 1].cost;
-    subscription = this.data.userSubscription[this.id - 1];
+    let subscription: Subscriptions = new Subscriptions();
+    subscription.id = this.data.userSubscription[this.id].id;
+    subscription.status = this.data.userSubscription[this.id].status;
+    subscription.period = this.data.userSubscription[this.id].period;
+    subscription.name = this.data.userSubscription[this.id].name;
+    subscription.cost = this.data.userSubscription[this.id].cost;
+    subscription = this.data.userSubscription[this.id];
     if (subscription.status === true) {
-      this.periodOn = 0;
+      this.periodOn = 1;
     }
     subscription.period = this.periodOn;
     subscription.status = !subscription.status;
-    // this.data.userSubscription = null;
-    this.data.userSubscription[this.id - 1] = subscription;
+    this.data.userSubscription[this.id] = subscription;
     this.data.modifyUserSubscription(subscription);
-    // console.log('id: ', this.id, ' status: ', subscription.status);
   }
 
   setPeriodOn(period: number) {

@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../model/user.service';
-import {SubscriptionSC} from '../../model/SubscriptionSC';
+import {Subscriptions} from '../../model/Subscriptions';
 import {Subscription} from 'rxjs';
-import {UserSC} from '../../model/UserSC';
+import {Users} from '../../model/Users';
 
 @Component({
     selector: 'app-subscription',
@@ -13,8 +13,8 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
 
     public productPerPage = 5;
     public selectedPage = 1;
-    private subscriptions: SubscriptionSC[];
-    private user: UserSC;
+    private subscriptions: Subscriptions[];
+    private user: Users;
     private subscriptionStorage: Subscription = new Subscription();
     private count: number;
     private page = 1;
@@ -25,9 +25,9 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
     ngOnInit() {}
 
     // Get Products with pagination
-    get products(): SubscriptionSC[] {
+    get products(): Subscriptions[] {
         this.subscriptionStorage.add(this.data.getUserSubscription(this.data.idUser, (this.page - 1) * this.productPerPage,
-            this.productPerPage).subscribe((subscriptions: SubscriptionSC[]) => {
+            this.productPerPage).subscribe((subscriptions: Subscriptions[]) => {
             this.subscriptions = subscriptions;
         }));
         return this.subscriptions;
@@ -43,6 +43,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
     // Changing page number
     changePage(newPage: number) {
         this.page = newPage;
+        this.selectedPage = this.page;
         this.subscriptions = null;
         this.data.setUpdate();
     }
@@ -60,8 +61,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
     }
 
     getStatusSubscription(idS: number): string {
-        console.log(idS - (this.productPerPage * (this.page - 1) + 1));
-        if (this.subscriptions[idS - (this.productPerPage * (this.page - 1) + 1)].status === true && this.data.lookUser.blocked === false) {
+        if (this.subscriptions[idS].status === true && this.data.lookUser.blocked === false) {
             return 'ON';
         } else if (this.data.lookUser.blocked === true) {
             return 'Blocked';

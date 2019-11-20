@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../model/user.service';
-import {UserSC} from '../../model/UserSC';
+import {Users} from '../../model/Users';
 import {Subscription} from 'rxjs';
 
 @Component({
@@ -12,13 +12,13 @@ export class InformationComponent implements OnInit, OnDestroy {
 
   nameComponent = 'Account';
   private userStorage: Subscription = new Subscription();
-  private user: UserSC;
+  private user: Users;
 
   constructor(private data: UserService) {
   }
 
   ngOnInit() {
-    this.userStorage.add(this.data.getUserHttp(this.data.idUser).subscribe((user: UserSC) => {
+    this.userStorage.add(this.data.getUserHttp(this.data.idUser).subscribe((user: Users) => {
       this.user = user;
     }));
   }

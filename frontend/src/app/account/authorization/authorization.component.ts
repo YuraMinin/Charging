@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../../model/user.service';
-import {UserSC} from '../../model/UserSC';
+import {Users} from '../../model/Users';
 
 @Component({
   selector: 'app-authorization',
@@ -17,7 +17,7 @@ export class AuthorizationComponent implements OnInit {
   public passwd: string;
   public emptyField;
   public failedData;
-  public user: UserSC;
+  public user: Users;
 
   // Authorization User or Admin
   auth(): void {
@@ -26,7 +26,7 @@ export class AuthorizationComponent implements OnInit {
 
     if (this.login != null && this.passwd != null) {
       // Create User for api
-      const user: UserSC = new UserSC(null, null, this.login, this.passwd, null);
+      const user: Users = new Users(null, null, this.login, this.passwd, null);
       /*user.login = this.login;
       user.password = this.passwd;*/
 

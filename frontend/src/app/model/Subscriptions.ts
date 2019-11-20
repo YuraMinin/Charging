@@ -1,4 +1,4 @@
-export class SubscriptionSC {
+export class Subscriptions {
   id: number;
   name: string;
   status: boolean;

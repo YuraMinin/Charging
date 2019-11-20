@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {UserSC} from '../../model/UserSC';
+import {Users} from '../../model/Users';
 import {UserService} from '../../model/user.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class BillingaccountComponent implements OnInit, OnDestroy {
     public AmountTransfer: number;
     public correctData = true;
     private billingStorage: Subscription = new Subscription();
-    private user: UserSC;
+    private user: Users;
 
 
     constructor(private date: UserService) {
@@ -28,7 +28,7 @@ export class BillingaccountComponent implements OnInit, OnDestroy {
     }
 
     get User() {
-        this.billingStorage.add(this.date.getUserHttp(this.date.idUser).subscribe((user: UserSC) => {
+        this.billingStorage.add(this.date.getUserHttp(this.date.idUser).subscribe((user: Users) => {
             this.user = user;
         }));
         return this.user;

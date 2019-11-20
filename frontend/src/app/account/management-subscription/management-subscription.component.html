@@ -1,15 +1,15 @@
 <div class="row">
-  <div *ngIf="!data.userSubscription[id - 1].status">
+  <div *ngIf="!data.userSubscription[id].status">
     <button type="button" class="btn btn-outline-success btn-sm" (click)="changeStatus()"
             [disabled]="data.lookUser.blocked">ON</button>
   </div>
-  <div *ngIf="data.userSubscription[id - 1].status">
+  <div *ngIf="data.userSubscription[id].status">
     <button type="button" class="btn btn-outline-danger btn-sm" (click)="changeStatus()"
             [disabled]="data.lookUser.blocked">OFF</button>
   </div>
 
 
-  <div class="d-inline-flex" *ngIf="!data.userSubscription[id - 1].status">
+  <div class="d-inline-flex" *ngIf="!data.userSubscription[id].status">
     <p class="text-black-50 ml-3 font-italic font-weight-bold mr-2">Period:</p>
     <div class="dropdown dropright">
       <button type="button" class="btn btn-outline-dark dropdown-toggle btn-sm" data-toggle="dropdown"

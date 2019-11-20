@@ -40,7 +40,8 @@ public class UsersController {
     }
 
     @PutMapping("/{id}")
-    public User modifyUser(@PathVariable Integer id, @RequestBody User user) {
+    public User modifyUser(@PathVariable Integer id,
+                           @RequestBody User user) {
         return data.modifyUser(user, id);
     }
 

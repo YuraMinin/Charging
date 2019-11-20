@@ -123,4 +123,13 @@ public class Datasource {
     public boolean transferMoney(int id, Identification user) {
         return this.users.get(id - 1).addMoney(user.numberCard, user.amountTransfer);
     }
+
+    public List<Product> getUserSubscriptions(int id, int limit, int offset) {
+        int count = offset + limit;
+        if (count > getAllProductUser(id).size()) {
+            count = getAllProductUser(id).size();
+        }
+        return getAllProductUser(id).subList(offset, count);
+    }
+
 }

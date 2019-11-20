@@ -22,12 +22,18 @@ public class ProductsController {
         return data.getAllProductUser(id);
     }
 
-    @GetMapping("/{id}/products/offset={offset}&limit={limit}")
-    public List<Product> getUserProducts(@PathVariable("id") int id, @PathVariable("offset") int offset,
+    /*@GetMapping("/{id}/products/offset={offset}&limit={limit}") // ispravit
+    public List<Product> getUserProducts(@PathVariable("id") int id,
+                                         @PathVariable("offset") int offset,
                                          @PathVariable("limit") int limit) {
-        int count = offset + limit;
-        if (count > data.getAllProductUser(id).size()) count = data.getAllProductUser(id).size();
-        return data.getAllProductUser(id).subList(offset, count);
+        return data.getUserSubscriptions(id, limit, offset);
+    }*/
+
+    @GetMapping(value = "/{id}/products", params = {"offset", "limit"})
+    public List<Product> getUserProducts(@PathVariable("id") int id,
+                                         @RequestParam("offset") int offset,
+                                         @RequestParam("limit") int limit) {
+        return data.getUserSubscriptions(id, limit, offset);
     }
 
     @GetMapping("/{id}/products/count")
@@ -43,7 +49,8 @@ public class ProductsController {
 
     // ON/OFF user subscription
     @PostMapping("/{id}/product")
-    public void addProduct(@PathVariable Integer id, @RequestBody Product product) {
+    public void addProduct(@PathVariable Integer id,
+                           @RequestBody Product product) {
         data.modifySubscription(id, product);
     }
 

@@ -15,19 +15,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let product of products">
-                <td>{{product.id}}</td>
+            <tr *ngFor="let product of products; let idx = index">
+                <td>{{idx + productPerPage * (page - 1) + 1}}</td>
                 <td>{{product.name}}</td>
                 <td>
                     <div *ngIf=product.id>
                         <p [class]="getClassMap()">
-                            Subscription <b> {{getStatusSubscription(product.id)}}</b></p>
+                            Subscription <b> {{getStatusSubscription(idx)}}</b></p>
                     </div>
                 </td>
                 <td>{{product.cost}} x {{product.period}} min</td>
                 <td>
                     <app-management-subscription
-                            [id]="product.id - (productPerPage * (page - 1))"></app-management-subscription>
+                            [id]="idx"></app-management-subscription>
                 </td>
             </tr>
             </tbody>

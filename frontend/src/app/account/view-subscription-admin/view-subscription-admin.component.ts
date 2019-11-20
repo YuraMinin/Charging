@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {UserService} from '../../model/user.service';
 import {Subscription} from 'rxjs';
-import {SubscriptionSC} from '../../model/SubscriptionSC';
+import {Subscriptions} from '../../model/Subscriptions';
 
 
 @Component({
@@ -14,7 +14,7 @@ export class ViewSubscriptionAdminComponent implements OnInit, OnDestroy {
 
   id: number;
   private subscriptionStorage: Subscription = new Subscription();
-  private subscriptionsUser: SubscriptionSC[];
+  private subscriptionsUser: Subscriptions[];
 
   constructor(private date: UserService,
               private activatedRoute: ActivatedRoute) {
@@ -23,7 +23,7 @@ export class ViewSubscriptionAdminComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.subscriptionStorage.add(this.date.getUserSubscriptionHttp(this.id).subscribe((subscriptions: SubscriptionSC[]) => {
+    this.subscriptionStorage.add(this.date.getUserSubscriptionHttp(this.id).subscribe((subscriptions: Subscriptions[]) => {
       this.subscriptionsUser = subscriptions;
     }));
   }

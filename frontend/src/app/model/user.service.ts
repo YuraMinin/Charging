@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Observable, ReplaySubject, Subject, Subscription} from 'rxjs';
-import {UserSC} from './UserSC';
+import {Users} from './Users';
 import {HttpService} from '../HttpService';
-import {SubscriptionSC} from './SubscriptionSC';
+import {Subscriptions} from './Subscriptions';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 
 @Injectable()
 export class UserService {
-    private users: Subject<UserSC[]>;
-    private user: Subject<UserSC>;
-    private subscription: Subject<SubscriptionSC[]>;
+    private users: Subject<Users[]>;
+    private user: Subject<Users>;
+    private subscription: Subject<Subscriptions[]>;
 
     private subsID: Subject<number>;
     private transfer: Subject<boolean>;
@@ -18,16 +18,16 @@ export class UserService {
     private userStorage: Subscription = new Subscription();
 
     // Users (for admin)
-    private usersStorage: UserSC[];
+    private usersStorage: Users[];
 
     // ID authorized User (DELETE ???)
     public idUser: number;
 
     // Authorized user(ID) (DELETE)
-    public lookUser: UserSC;
+    public lookUser: Users;
 
     // Subscription user(ID)  (DELETE)
-    public userSubscription: SubscriptionSC[];
+    public userSubscription: Subscriptions[];
 
     // DELETE
     // public id: number;
@@ -40,19 +40,19 @@ export class UserService {
     constructor(private http: HttpService, private httpClient: HttpClient, private router: Router) {
     }
 
-    public getUsers(): UserSC[] {
+    public getUsers(): Users[] {
         return this.usersStorage;
     }
 
-    public getUser(): UserSC {
+    public getUser(): Users {
         return this.lookUser;
     }
 
     // Get all users for admin
-    public getUsersHttp(): Observable<UserSC[]> {
+    public getUsersHttp(): Observable<Users[]> {
         if (this.updateUsers) {
             this.users = new ReplaySubject(1);
-            this.http.get('http://localhost:8080/api/users').subscribe((users: UserSC[]) => {
+            this.http.get('http://localhost:8080/api/users').subscribe((users: Users[]) => {
                 this.usersStorage = users;
                 this.users.next(users);
             });
@@ -62,10 +62,10 @@ export class UserService {
     }
 
     // Get user_ID (User Account)
-    public getUserHttp(id: number): Observable<UserSC> {
+    public getUserHttp(id: number): Observable<Users> {
         this.user = new ReplaySubject(1);
         if (!this.user || this.updateUserID) {
-            this.userStorage = this.http.get('http://localhost:8080/api/users/' + id).subscribe((user: UserSC) => {
+            this.userStorage = this.http.get('http://localhost:8080/api/users/' + id).subscribe((user: Users) => {
                 this.lookUser = user;
                 this.user.next(user);
             });
@@ -76,10 +76,10 @@ export class UserService {
     }
 
     // Get user_ID Subscription (Admin and User)
-    public getUserSubscriptionHttp(id: number): Observable<SubscriptionSC[]> {
+    public getUserSubscriptionHttp(id: number): Observable<Subscriptions[]> {
         if (!this.subscription || this.updateSubscription || id !== this.idUser) {
             this.subscription = new ReplaySubject(1);
-            this.http.get('http://localhost:8080/api/users/' + id + '/products').subscribe((subscription: SubscriptionSC[]) => {
+            this.http.get('http://localhost:8080/api/users/' + id + '/products').subscribe((subscription: Subscriptions[]) => {
                 this.userSubscription = subscription;
                 this.subscription.next(subscription);
             });
@@ -98,22 +98,22 @@ export class UserService {
     }
 
     // Modify information on user_ID (E_wallet, Blocked user)
-    public modifyUser(id: number, user: UserSC): void {
-        this.httpClient.put<UserSC>('http://localhost:8080/api/users/' + id, user).subscribe();
+    public modifyUser(id: number, user: Users): void {
+        this.httpClient.put<Users>('http://localhost:8080/api/users/' + id, user).subscribe();
         // this.setUpdate();
     }
 
     // ON/OFF subscription user_ID
     public addSubscription(name: string, cost: number): void {
-        const newSubscription: SubscriptionSC = new SubscriptionSC();
+        const newSubscription: Subscriptions = new Subscriptions();
         newSubscription.name = name;
         newSubscription.cost = cost;
-        this.httpClient.post<SubscriptionSC>('http://localhost:8080/api/users/products', newSubscription).subscribe();
+        this.httpClient.post<Subscriptions>('http://localhost:8080/api/users/products', newSubscription).subscribe();
         this.setUpdate();
     }
 
     // id = -1 failed authorization
-    public authorizationUser(user: UserSC): Observable<number> {
+    public authorizationUser(user: Users): Observable<number> {
         this.subsID = new ReplaySubject(1);
         this.httpClient.post<number>('http://localhost:8080/api/users/authorization', user).subscribe(
             (id: number) => {
@@ -124,7 +124,7 @@ export class UserService {
         return this.subsID.asObservable();
     }
 
-    public registerUser(user: UserSC): Observable<number> {
+    public registerUser(user: Users): Observable<number> {
         this.subsID = new ReplaySubject(1);
         this.httpClient.post<number>('http://localhost:8080/api/users', user).subscribe(
             (id: number) => {
@@ -136,13 +136,13 @@ export class UserService {
     }
 
     // ON/OFF user Subscription_id
-    public modifyUserSubscription(subscription: SubscriptionSC): void {
+    public modifyUserSubscription(subscription: Subscriptions): void {
         console.log(subscription.status);
         this.httpClient.post('http://localhost:8080/api/users/' + this.idUser + '/product', subscription).subscribe();
         // this.setUpdate();
     }
 
-    public transferMoney(user: UserSC, id: number): Observable<boolean> {
+    public transferMoney(user: Users, id: number): Observable<boolean> {
         this.transfer = new ReplaySubject(1);
         console.log(user.numberCard);
         console.log(user.amountTransfer);
@@ -166,11 +166,11 @@ export class UserService {
         return this.subsID.asObservable();
     }
 
-    public getUserSubscription(id: number, offset: number, limit: number): Observable<SubscriptionSC[]> {
+    public getUserSubscription(id: number, offset: number, limit: number): Observable<Subscriptions[]> {
         if (!this.subscription || this.updateSubscription || id !== this.idUser) {
             this.subscription = new ReplaySubject(1);
-            this.http.get('http://localhost:8080/api/users/' + id + '/products/offset=' + offset + '&limit=' + limit)
-                .subscribe((subscription: SubscriptionSC[]) => {
+            this.http.get('http://localhost:8080/api/users/' + id + '/products?offset=' + offset + '&limit=' + limit)
+                .subscribe((subscription: Subscriptions[]) => {
                 this.userSubscription = subscription;
                 this.subscription.next(subscription);
             });
