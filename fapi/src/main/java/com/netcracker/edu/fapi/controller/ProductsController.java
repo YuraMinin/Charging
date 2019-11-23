@@ -22,13 +22,6 @@ public class ProductsController {
         return data.getAllProductUser(id);
     }
 
-    /*@GetMapping("/{id}/products/offset={offset}&limit={limit}") // ispravit
-    public List<Product> getUserProducts(@PathVariable("id") int id,
-                                         @PathVariable("offset") int offset,
-                                         @PathVariable("limit") int limit) {
-        return data.getUserSubscriptions(id, limit, offset);
-    }*/
-
     @GetMapping(value = "/{id}/products", params = {"offset", "limit"})
     public List<Product> getUserProducts(@PathVariable("id") int id,
                                          @RequestParam("offset") int offset,
