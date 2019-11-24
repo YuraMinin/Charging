@@ -64,4 +64,29 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         // modify
         return findAll(id).size();
     }
+
+    @Override
+    public void save(Subscription subscription, Integer idUser) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.put("http://localhost:8081/api/users/subscriptions?idUser=" + idUser
+                + "&idSubscription=" + subscription.id, subscription.period);
+    }
+
+    @Override
+    public void delete(Integer id, Subscription subscription) {
+        List<Subscription> subscriptions = userService.findById(id).subscriptions;
+        for (Subscription item: subscriptions) {
+            if (item.id.equals(subscription.id)) {
+                RestTemplate restTemplate = new RestTemplate();
+                // System.out.println(item.idSubscription);
+                restTemplate.delete("http://localhost:8081/api/users/subscriptions?idSubscription=" +
+                        item.idSubscription );
+            }
+        }
+
+
+
+    }
+
+
 }

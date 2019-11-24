@@ -48,11 +48,19 @@ public class ProductsController {
         data.addProduct(product);
     }
 
+    // ........Test..........
     // ON/OFF user subscription
     @PostMapping("/{id}/product")
     public void addProduct(@PathVariable Integer id,
-                           @RequestBody Product product) {
-        data.modifySubscription(id, product);
+                           @RequestBody Subscription subscription) {
+        if (subscription.status.equals(true)) {
+            subscriptionService.save(subscription, id);
+            System.out.println(subscription.status);
+        }
+        else {
+            // subscription.period = "0";
+            subscriptionService.delete(id, subscription);
+        }
     }
 
 

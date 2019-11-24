@@ -7,8 +7,10 @@ public class Subscription {
 
     public int cost;
 
-    public boolean status = false;
+    public Boolean status = false;
 
     public String period = "0";
+
+    public Integer idSubscription;
 
 }
