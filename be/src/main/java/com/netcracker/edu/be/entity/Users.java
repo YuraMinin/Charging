@@ -23,23 +23,32 @@ public class Users {
 
     private String email;
 
-    //public Integer amount = 15;
+    private Boolean blocked;
+
+    public Boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
+    }
+//public Integer amount = 15;
 
     @OneToMany(mappedBy = "user")
-    private Set<UsersSubscriptions> userSubscriptions;
+    private List<UsersSubscriptions> userSubscriptions;
 
     @OneToMany(mappedBy = "billing")
     private List<BillingAccounts> billingAccounts;
 
     public Users() {}
 
-    public List<BillingAccounts> getBillingAccounts() {
+    /*public List<BillingAccounts> getBillingAccounts() {
         return billingAccounts;
     }
 
     public void setBillingAccounts(List<BillingAccounts> billingAccounts) {
         this.billingAccounts = billingAccounts;
-    }
+    }*/
 
     public Integer getId() {
         return id;
@@ -89,11 +98,11 @@ public class Users {
         this.email = email;
     }
 
-    public Set<UsersSubscriptions> getSubscriptions() {
+    public List<UsersSubscriptions> getSubscriptions() {
         return userSubscriptions;
     }
 
-    public void setSubscriptions(Set<UsersSubscriptions> subscriptions) {
+    public void setSubscriptions(List<UsersSubscriptions> subscriptions) {
         this.userSubscriptions= subscriptions;
     }
 }

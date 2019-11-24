@@ -21,7 +21,7 @@ public class SubscriptionController {
     private UserSubscriptionService userSubscriptionService;
 
     @RequestMapping(value = "/subscriptions", method = RequestMethod.GET)
-    public List<Subscriptions> getAllUsers() {
+    public List<Subscriptions> getAllSubscription() {
 
         return subscriptionService.findAll();
     }

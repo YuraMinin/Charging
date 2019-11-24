@@ -11,7 +11,7 @@ public class UsersSubscriptions {
     private Integer id;
 
     @Column(name = "period_on")
-    private LocalTime period;
+    private String period;
 
     @Column(name = "time_on")
     private LocalTime timeOn;
@@ -27,18 +27,18 @@ public class UsersSubscriptions {
     public UsersSubscriptions() {}
 
     public Integer getId() {
-        return id;
+        return subscription.getId();
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.subscription.setId(id);
     }
 
-    public LocalTime getPeriod() {
+    public String getPeriod() {
         return period;
     }
 
-    public void setPeriod(LocalTime period) {
+    public void setPeriod(String period) {
         this.period = period;
     }
 
@@ -50,13 +50,15 @@ public class UsersSubscriptions {
         this.timeOn = timeOn;
     }
 
-    public Subscriptions getSubscriptions() {
+
+
+    /*public Subscriptions getSubscriptions() {
         return subscription;
     }
 
     public void setSubscriptions(Subscriptions subscriptions) {
         this.subscription = subscriptions;
-    }
+    }*/
 
     @Override
     public String toString() {

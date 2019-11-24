@@ -2,6 +2,7 @@ package com.netcracker.edu.be.service.impl;
 
 import com.netcracker.edu.be.entity.Subscriptions;
 import com.netcracker.edu.be.repository.SubscriptionRepository;
+import com.netcracker.edu.be.repository.UserRepository;
 import com.netcracker.edu.be.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Autowired
     private SubscriptionRepository subscriptionRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
     public List<Subscriptions> findAll() {
         return (List<Subscriptions>) subscriptionRepository.findAll();
@@ -22,7 +26,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public Optional<Subscriptions> findById(Integer id) {
+
         return subscriptionRepository.findById(id);
+        //return userRepository.findById(1).
     }
 
     @Override
