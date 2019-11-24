@@ -1,10 +1,8 @@
 package com.netcracker.edu.fapi.controller;
 
-import com.netcracker.edu.fapi.models.Datasource;
-import com.netcracker.edu.fapi.models.Identification;
-import com.netcracker.edu.fapi.models.Product;
-import com.netcracker.edu.fapi.models.User;
+import com.netcracker.edu.fapi.models.*;
 //import com.netcracker.edu.fapi.service.UserService;
+import com.netcracker.edu.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -22,21 +20,33 @@ public class UsersController {
     @Autowired
     private Datasource data;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
-    public List<User> getAllUsers(){
-        return data.getUsers();
+    public List<UserEntity> getAllUsers(){
+        //return data.getUsers();
+        return userService.findAll();
     }
 
+    // Delete
+    @GetMapping("/old")
+    public List<User> getAllUsersOlD(){
+        return data.getUsers();
+        //return userService.findAll();
+    }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Integer id){
-        return data.getUser(id);
+    public UserEntity getUser(@PathVariable Integer id){
+        //return data.getUser(id);
+        return userService.findById(id);
     }
 
     //Create User
     @PostMapping
-    public Integer createUser(@Valid @RequestBody Identification user) {
-        return data.addUser(user);
+    public Integer createUser(@Valid @RequestBody UserEntity user) {
+        //return data.addUser(user);
+        return userService.save(user).id;
     }
 
     @PutMapping("/{id}")
@@ -46,8 +56,9 @@ public class UsersController {
     }
 
     @PostMapping("/authorization")
-    public Integer authorizationUser(@RequestBody Identification user) {
-        return data.authorizationUser(user.login, user.password);
+    public Integer authorizationUser(@RequestBody UserEntity user) {
+        //return data.authorizationUser(user.login, user.password);
+        return userService.authorization(user).id;
     }
 
 

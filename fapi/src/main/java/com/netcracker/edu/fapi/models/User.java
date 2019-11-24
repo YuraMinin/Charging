@@ -10,7 +10,7 @@ public class User {
     private String lastName;
     private String login;
     private String password;
-    private String numberCard;
+    private String numberCard = null;
     private int balance = 0;
     private String email;
     private boolean blocked = false;

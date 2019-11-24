@@ -2,6 +2,8 @@ package com.netcracker.edu.fapi.controller;
 
 import com.netcracker.edu.fapi.models.Datasource;
 import com.netcracker.edu.fapi.models.Product;
+import com.netcracker.edu.fapi.models.Subscription;
+import com.netcracker.edu.fapi.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,23 +17,29 @@ public class ProductsController {
     @Autowired
     private Datasource data;
 
+    @Autowired
+    private SubscriptionService subscriptionService;
+
     // All products user
     @GetMapping("/{id}/products")
-    public List<Product> getAllUsersProduct(@PathVariable Integer id) {
+    public List<Subscription> getAllUsersProduct(@PathVariable Integer id) {
 
-        return data.getAllProductUser(id);
+        // return data.getAllProductUser(id);
+        return subscriptionService.findAll(id);
     }
 
     @GetMapping(value = "/{id}/products", params = {"offset", "limit"})
-    public List<Product> getUserProducts(@PathVariable("id") int id,
-                                         @RequestParam("offset") int offset,
-                                         @RequestParam("limit") int limit) {
-        return data.getUserSubscriptions(id, limit, offset);
+    public List<Subscription> getUserProducts(@PathVariable("id") int id,
+                                              @RequestParam("offset") int offset,
+                                              @RequestParam("limit") int limit) {
+        // return data.getUserSubscriptions(id, limit, offset);
+        return subscriptionService.findPage(id, limit, offset);
     }
 
     @GetMapping("/{id}/products/count")
     public int countProducts(@PathVariable Integer id) {
-        return data.getAllProductUser(id).size();
+        //return data.getAllProductUser(id).size();
+        return subscriptionService.count(id);
     }
 
     // Add new product
@@ -46,8 +54,6 @@ public class ProductsController {
                            @RequestBody Product product) {
         data.modifySubscription(id, product);
     }
-
-
 
 
 }
