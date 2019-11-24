@@ -3,9 +3,11 @@ package com.netcracker.edu.be.service;
 import com.netcracker.edu.be.entity.Users;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     List<Users> findAll();
-    Users authorization(String login, String password);
+    Optional<Users> findById(Integer id);
+    Users authorization(Users user);
     Users save(Users user);
 }

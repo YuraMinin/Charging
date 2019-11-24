@@ -58,8 +58,11 @@ public class UsersSubscriptions {
         this.subscription = subscriptions;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "subscriptions [id=" + id + ", name=" + subscription.getName() + ", cost=" + subscription.getCost()
+                + ", period=" + period + "]";
+    }
 
 
 }

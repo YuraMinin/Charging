@@ -4,11 +4,12 @@ import com.netcracker.edu.be.entity.Users;
 import com.netcracker.edu.be.entity.UsersSubscriptions;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserSubscriptionService {
     List<UsersSubscriptions> findAll();
-    UsersSubscriptions findById(Integer id);
+    Optional <UsersSubscriptions> findById(Integer id);
     UsersSubscriptions save(UsersSubscriptions subscription);
-    void delete(Integer id);
+    void deleteById(Integer id);
 
 }

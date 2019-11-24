@@ -1,0 +1,37 @@
+package com.netcracker.edu.be.service.impl;
+
+import com.netcracker.edu.be.entity.Subscriptions;
+import com.netcracker.edu.be.repository.SubscriptionRepository;
+import com.netcracker.edu.be.service.SubscriptionService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class SubscriptionServiceImpl implements SubscriptionService {
+
+    @Autowired
+    private SubscriptionRepository subscriptionRepository;
+
+    @Override
+    public List<Subscriptions> findAll() {
+        return (List<Subscriptions>) subscriptionRepository.findAll();
+    }
+
+    @Override
+    public Optional<Subscriptions> findById(Integer id) {
+        return subscriptionRepository.findById(id);
+    }
+
+    @Override
+    public Subscriptions save(Subscriptions subscription) {
+        return subscriptionRepository.save(subscription);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        subscriptionRepository.deleteById(id);
+    }
+}

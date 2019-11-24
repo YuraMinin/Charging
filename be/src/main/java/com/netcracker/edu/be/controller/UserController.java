@@ -1,12 +1,11 @@
 package com.netcracker.edu.be.controller;
 
+import com.netcracker.edu.be.entity.Subscriptions;
 import com.netcracker.edu.be.entity.Users;
 import com.netcracker.edu.be.repository.UserRepository;
+import com.netcracker.edu.be.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,16 +15,29 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public List<Users> getAllUsers() {
-        return (List<Users>) userRepository.findAll();
+        return  userService.findAll();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Optional<Users> getUser(@PathVariable(name = "id") Integer id) {
-        return  userRepository.findById(id);
+        return userService.findById(id);
     }
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public Users createUser(@RequestBody Users user) {
+        return userService.save(user);
+    }
+
+    @RequestMapping(value = "/authorization", method = RequestMethod.POST)
+    public Users authorizationUser(@RequestBody Users user) {
+        return userService.authorization(user);
+    }
+
+
+
 
 }
