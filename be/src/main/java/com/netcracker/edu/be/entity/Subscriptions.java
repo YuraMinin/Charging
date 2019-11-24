@@ -15,8 +15,8 @@ public class Subscriptions {
 
     private int cost;
 
-    /*@OneToMany(mappedBy = "SubscriptionON")
-    private List<UsersSubscriptions> subscriptionON;*/
+    @OneToMany(mappedBy = "subscription")
+    private List<UsersSubscriptions> subscriptions;
 
     public Subscriptions() {}
 
@@ -42,6 +42,10 @@ public class Subscriptions {
 
     public void setCost(int cost) {
         this.cost = cost;
+    }
+
+    public void addSubscription(UsersSubscriptions usersSubscription) {
+        subscriptions.add(usersSubscription);
     }
 
 }

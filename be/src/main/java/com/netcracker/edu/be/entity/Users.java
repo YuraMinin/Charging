@@ -103,6 +103,11 @@ public class Users {
     }
 
     public void setSubscriptions(List<UsersSubscriptions> subscriptions) {
-        this.userSubscriptions= subscriptions;
+        this.userSubscriptions = subscriptions;
+    }
+
+    // Test
+    public void addSubscription(UsersSubscriptions usersSubscription) {
+        this.userSubscriptions.add(usersSubscription);
     }
 }

@@ -8,7 +8,9 @@ import java.time.LocalTime;
 public class UsersSubscriptions {
 
     @Id
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer IdSubscription;
 
     @Column(name = "period_on")
     private String period;
@@ -26,12 +28,19 @@ public class UsersSubscriptions {
 
     public UsersSubscriptions() {}
 
-    public Integer getId() {
-        return subscription.getId();
+    public UsersSubscriptions(String period, Users user, Subscriptions subscription) {
+        super();
+        this.period = period;
+        this.user = user;
+        this.subscription = subscription;
     }
 
-    public void setId(Integer id) {
-        this.subscription.setId(id);
+    public Integer getIdSubscription() {
+        return IdSubscription;
+    }
+
+    public void setIdSubscription(Integer idSubscription) {
+        this.IdSubscription = idSubscription;
     }
 
     public String getPeriod() {
@@ -50,6 +59,15 @@ public class UsersSubscriptions {
         this.timeOn = timeOn;
     }
 
+    // Test
+    public Integer getid() {
+        return subscription.getId();
+    }
+
+    public void setid(int id) {
+        subscription.setId(id);
+    }
+
 
 
     /*public Subscriptions getSubscriptions() {
@@ -62,7 +80,7 @@ public class UsersSubscriptions {
 
     @Override
     public String toString() {
-        return "subscriptions [id=" + id + ", name=" + subscription.getName() + ", cost=" + subscription.getCost()
+        return "subscriptions [IdSubscription=" + IdSubscription + ", name=" + subscription.getName() + ", cost=" + subscription.getCost()
                 + ", period=" + period + "]";
     }
 

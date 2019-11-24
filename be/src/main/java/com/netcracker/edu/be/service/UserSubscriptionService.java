@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface UserSubscriptionService {
     List<UsersSubscriptions> findAll();
     Optional <UsersSubscriptions> findById(Integer id);
-    UsersSubscriptions save(UsersSubscriptions subscription);
+    UsersSubscriptions save(String period, Integer idUser, Integer idSubscription);
     void deleteById(Integer id);
 
 }
