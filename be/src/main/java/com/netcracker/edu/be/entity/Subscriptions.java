@@ -20,6 +20,11 @@ public class Subscriptions {
 
     public Subscriptions() {}
 
+    public Subscriptions(String name, int cost) {
+        this.name = name;
+        this.cost = cost;
+    }
+
     public Integer getId() {
         return id;
     }

@@ -29,6 +29,7 @@ public class UserController {
 
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Users createUser(@RequestBody Users user) {
+        System.out.println(user.getFirstName() + user.getLastName() + user.getPassword() + user.getLogin() + user.getEmail());
         return userService.save(user);
     }
 

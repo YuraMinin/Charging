@@ -1,8 +1,10 @@
 package com.netcracker.edu.be.service.impl;
 
 import com.netcracker.edu.be.entity.BillingAccounts;
+import com.netcracker.edu.be.entity.Users;
 import com.netcracker.edu.be.repository.BillingAccountRepository;
 import com.netcracker.edu.be.service.BillingAccountService;
+import com.netcracker.edu.be.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,19 +17,48 @@ public class BillingAccountServiceImpl implements BillingAccountService {
     @Autowired
     private BillingAccountRepository billingAccountRepository;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public List<BillingAccounts> findAll() {
         return (List<BillingAccounts>) billingAccountRepository.findAll();
     }
 
     @Override
-    public Optional<BillingAccounts> findById(Integer id) {
-        return billingAccountRepository.findById(id);
+    public BillingAccounts findById(Integer id) {
+
+        return userService.findById(id).get().getBillingAccounts().get(0);
+        //return billingAccountRepository.findById(id);
     }
 
     @Override
-    public BillingAccounts save(BillingAccounts billingAccount) {
-        return billingAccountRepository.save(billingAccount);
+    public BillingAccounts save(BillingAccounts billingAccount, Integer idUser) {
+        if (userService.findById(idUser).isPresent()) {
+            BillingAccounts newBillingAccount = new BillingAccounts(billingAccount.getNumberCard(),
+                    userService.findById(idUser).get());
+            return billingAccountRepository.save(newBillingAccount);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public boolean transferMoney(Integer id, BillingAccounts billingAccounts, Integer amount) {
+        if (userService.findById(id).isPresent()) {
+            Users user = userService.findById(id).get();
+            if (user.getBillingAccounts().get(0).getNumberCard().equals(billingAccounts.getNumberCard())) {
+                user.getBillingAccounts().get(0).setAmount(amount);
+                billingAccountRepository.save(user.getBillingAccounts().get(0));
+
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
     }
 
     @Override

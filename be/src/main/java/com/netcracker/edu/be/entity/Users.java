@@ -42,13 +42,22 @@ public class Users {
 
     public Users() {}
 
-    /*public List<BillingAccounts> getBillingAccounts() {
+    public Users(Users user) {
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.login = user.getLogin();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.blocked = false;
+    }
+
+    public List<BillingAccounts> getBillingAccounts() {
         return billingAccounts;
     }
 
     public void setBillingAccounts(List<BillingAccounts> billingAccounts) {
         this.billingAccounts = billingAccounts;
-    }*/
+    }
 
     public Integer getId() {
         return id;

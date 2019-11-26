@@ -21,6 +21,12 @@ public class BillingAccounts {
 
     public BillingAccounts() {}
 
+    public BillingAccounts(String numberCard, Users user) {
+        this.numberCard = numberCard;
+        this.amount = 0;
+        this.billing = user;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -42,7 +48,7 @@ public class BillingAccounts {
     }
 
     public void setAmount(int amount) {
-        this.amount = amount;
+        this.amount += amount;
     }
 
 }

@@ -25,6 +25,7 @@ public class SubscriptionController {
         return subscriptionService.findAll();
     }
 
+    // rename onSubscription
     @RequestMapping(value = "/subscriptions", params = {"idUser", "idSubscription"}, method = RequestMethod.PUT)
     public void modifyStatusProducts(@RequestParam("idUser") int idUser,
                                      @RequestParam("idSubscription") int idSubscription,
@@ -41,5 +42,13 @@ public class SubscriptionController {
         System.out.println(idSubscription);
         userSubscriptionService.deleteById(idSubscription);
     }
+
+    // Add new Subscription
+    @RequestMapping(value = "/subscriptions",  method = RequestMethod.POST)
+    public void addSubscription(@RequestBody Subscriptions subscription) {
+        subscriptionService.save(subscription);
+    }
+
+
 
 }

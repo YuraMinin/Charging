@@ -33,7 +33,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public Subscriptions save(Subscriptions subscription) {
-        return subscriptionRepository.save(subscription);
+        Subscriptions newSubscription = new Subscriptions(subscription.getName(), subscription.getCost());
+        return subscriptionRepository.save(newSubscription);
     }
 
     @Override
