@@ -1,15 +1,12 @@
 package com.netcracker.edu.fapi.service.impl;
 
-import com.netcracker.edu.fapi.models.Product;
 import com.netcracker.edu.fapi.models.Subscription;
-import com.netcracker.edu.fapi.models.UserEntity;
 import com.netcracker.edu.fapi.service.SubscriptionService;
 import com.netcracker.edu.fapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -83,9 +80,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
                         item.idSubscription );
             }
         }
+    }
 
-
-
+    @Override
+    public void create(Subscription subscription) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.postForEntity("http://localhost:8081/api/users/subscriptions", subscription, Subscription.class);
     }
 
 

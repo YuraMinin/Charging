@@ -18,46 +18,31 @@ public class UsersController {
 
 
     @Autowired
-    private Datasource data;
-
-    @Autowired
     private UserService userService;
 
     @GetMapping
     public List<UserEntity> getAllUsers(){
-        //return data.getUsers();
-        return userService.findAll();
-    }
 
-    // Delete
-    @GetMapping("/old")
-    public List<User> getAllUsersOlD(){
-        return data.getUsers();
-        //return userService.findAll();
+        return userService.findAll();
     }
 
     @GetMapping("/{id}")
     public UserEntity getUser(@PathVariable Integer id){
-        //return data.getUser(id);
+
         return userService.findById(id);
     }
 
     //Create User
     @PostMapping
     public Integer createUser(@Valid @RequestBody UserEntity user) {
-        //return data.addUser(user);
-        return userService.save(user).id;
-    }
 
-    @PutMapping("/{id}")
-    public User modifyUser(@PathVariable Integer id,
-                           @RequestBody User user) {
-        return data.modifyUser(user, id);
+        System.out.println("Email" + user.email);
+        return userService.save(user).id;
     }
 
     @PostMapping("/authorization")
     public Integer authorizationUser(@RequestBody UserEntity user) {
-        //return data.authorizationUser(user.login, user.password);
+
         return userService.authorization(user).id;
     }
 

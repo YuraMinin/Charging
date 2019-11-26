@@ -1,7 +1,7 @@
 package com.netcracker.edu.fapi.controller;
-import com.netcracker.edu.fapi.models.Datasource;
-import com.netcracker.edu.fapi.models.Identification;
-import com.netcracker.edu.fapi.models.Product;
+
+import com.netcracker.edu.fapi.models.*;
+import com.netcracker.edu.fapi.service.BillingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,11 +10,24 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/users")
 public class BillingController {
 
+
+
     @Autowired
-    private Datasource date;
+    private BillingService billingService;
+
+
+    // block/unlock user
+    @PutMapping("/{id}")
+    public UserEntity changeStatusUser(@PathVariable Integer id,
+                                 @RequestBody UserEntity user) {
+        return user;
+        //return data.modifyUser(user, id);
+    }
+
 
     @PostMapping("/billing/{id}")
-    public boolean transferMoney(@PathVariable Integer id, @RequestBody Identification user) {
-        return date.transferMoney(id, user);
+    public boolean transferMoney(@PathVariable Integer id, @RequestBody UserEntity user) {
+        //return date.transferMoney(id, user);
+        return billingService.transferMoney(id, user, user.amountTransfer);
     }
 }

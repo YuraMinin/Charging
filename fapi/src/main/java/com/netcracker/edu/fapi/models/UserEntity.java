@@ -20,5 +20,9 @@ public class UserEntity {
 
     public Integer balance = 0;
 
+    public String numberCard;
+
+    public Integer amountTransfer;
+
     public List<Subscription> subscriptions;
 }

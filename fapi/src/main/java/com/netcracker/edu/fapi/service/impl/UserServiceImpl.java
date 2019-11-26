@@ -1,9 +1,8 @@
 package com.netcracker.edu.fapi.service.impl;
 
-import com.netcracker.edu.fapi.models.User;
+import com.netcracker.edu.fapi.models.BillingAccount;
 import com.netcracker.edu.fapi.models.UserEntity;
 import com.netcracker.edu.fapi.service.UserService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,9 +27,12 @@ public class UserServiceImpl implements UserService {
         RestTemplate restTemplate = new RestTemplate();
         UserEntity user = restTemplate.getForObject("http://localhost:8081/api/users/" + id,
                 UserEntity.class);
+        Integer amountMoney = restTemplate.getForObject("http://localhost:8081/api/users/" + id + "/billing",
+                BillingAccount.class).amount;
         if (user != null) {
             user.password = null;
             user.login = null;
+            user.balance = amountMoney;
         }
         return user;
     }
@@ -38,7 +40,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity save(UserEntity user) {
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForEntity("http://localhost:8081/api/users", user, UserEntity.class).getBody();
+        UserEntity newUser =  restTemplate.postForEntity("http://localhost:8081/api/users", user, UserEntity.class)
+                .getBody();
+        if (newUser != null) {
+            restTemplate.postForEntity("http://localhost:8081/api/users/" + newUser.id + "/billing", user, UserEntity.class).getBody();
+        }
+        return newUser;
+
     }
 
     public UserEntity authorization(UserEntity user) {

@@ -10,4 +10,5 @@ public interface SubscriptionService {
     Integer count(Integer id);
     void save(Subscription subscription, Integer idUser);
     void delete(Integer id, Subscription subscription);
+    void create(Subscription subscription);
 }
