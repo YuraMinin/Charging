@@ -80,7 +80,7 @@
                 <button type="submit" [disabled]="!myForm.valid || !canRegister" [class]="getClassMap()"
                         (click)="Register(myForm.controls['firstName'].value, myForm.controls['lastName'].value,
                 myForm.controls['userLogin'].value, myForm.controls['userPassword'].value,
-                myForm.controls['numCard'].value)" data-dismiss ="modal">
+                myForm.controls['numCard'].value, myForm.controls['userEmail'].value)" data-dismiss ="modal">
                     OK
                 </button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

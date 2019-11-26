@@ -26,7 +26,7 @@ export class AuthorizationComponent implements OnInit {
 
     if (this.login != null && this.passwd != null) {
       // Create User for api
-      const user: Users = new Users(null, null, this.login, this.passwd, null);
+      const user: Users = new Users(null, null, this.login, this.passwd, null, null);
       /*user.login = this.login;
       user.password = this.passwd;*/
 

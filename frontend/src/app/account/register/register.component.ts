@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
     public lastName: string;
     public numberCard: string;
     public newLogin: string;
+    public newEmail: string;
     public newPassword: string;
     public canRegister: boolean;
     public failedLogin = false;
@@ -55,13 +56,15 @@ export class RegisterComponent implements OnInit {
         }
     }
 
-    Register(fName: any, lName: any, Login: any, passw: any, numCard: any): void {
+    Register(fName: any, lName: any, Login: any, passw: any, numCard: any, email: any): void {
         this.firstName = String(fName);
         this.lastName = String(lName);
         this.newLogin = String(Login);
         this.newPassword = String(passw);
         this.numberCard = String(numCard);
-        const newUser: Users = new Users(this.firstName, this.lastName, this.newLogin, this.newPassword, this.numberCard);
+        this.newEmail = String(email);
+        const newUser: Users = new Users(this.firstName, this.lastName, this.newLogin, this.newPassword, this.numberCard,
+            this.newEmail);
         this.date.registerUser(newUser).subscribe((id: number) => {
             if (id === -1) {
                 this.failedLogin = true;
