@@ -1,4 +1,5 @@
 import {Subscriptions} from './Subscriptions';
+import {BillingAccounts} from "./BillingAccounts";
 
 export class Users {
     public id: number;
@@ -12,6 +13,7 @@ export class Users {
     public numberCard = '';
     public amountTransfer: number;
     public userProducts: Subscriptions[];
+    public billingAccounts: BillingAccounts[];
 
     constructor(firstName: string, lastName: string, login: string, password: string, numberCard: string, email: string) {
         this.firstName = firstName;

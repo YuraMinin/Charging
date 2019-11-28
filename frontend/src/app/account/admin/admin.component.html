@@ -18,7 +18,7 @@
     <tr *ngFor="let user of users">
       <td>{{user.id}}</td>
       <td> <b> {{user.lastName}}</b></td>
-      <td>{{user.balance}}</td>
+      <td>{{user.billingAccounts[0].amount}}</td>
       <td><p [class]= "getClassMap(user.id)"> {{userStatus(user.id)}} </p></td>
       <td><button type="button" class="btn btn-outline-dark btn-sm" [routerLink] ="['/products', user.id]">
         User Subscription
