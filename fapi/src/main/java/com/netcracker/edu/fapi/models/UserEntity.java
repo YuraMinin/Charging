@@ -25,4 +25,6 @@ public class UserEntity {
     public Integer amountTransfer;
 
     public List<Subscription> subscriptions;
+
+    public List<BillingAccount> billingAccounts;
 }

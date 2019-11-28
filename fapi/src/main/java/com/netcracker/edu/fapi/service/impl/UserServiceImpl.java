@@ -27,12 +27,12 @@ public class UserServiceImpl implements UserService {
         RestTemplate restTemplate = new RestTemplate();
         UserEntity user = restTemplate.getForObject("http://localhost:8081/api/users/" + id,
                 UserEntity.class);
-        Integer amountMoney = restTemplate.getForObject("http://localhost:8081/api/users/" + id + "/billing",
-                BillingAccount.class).amount;
+        /*Integer amountMoney = restTemplate.getForObject("http://localhost:8081/api/users/" + id + "/billing",
+                BillingAccount.class).amount;*/
         if (user != null) {
             user.password = null;
             user.login = null;
-            user.balance = amountMoney;
+            // user.balance = amountMoney;
         }
         return user;
     }
@@ -58,7 +58,13 @@ public class UserServiceImpl implements UserService {
             return newuser;
         }
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForEntity("http://localhost:8081/api/users/authorization", user, UserEntity.class)
+        UserEntity newUser =  restTemplate.postForEntity("http://localhost:8081/api/users/authorization", user, UserEntity.class)
                 .getBody();
+        if (newUser == null) {
+            UserEntity newuser = new UserEntity();
+            newuser.id = -1;
+            return newuser;
+        } else return newUser;
+
     }
 }

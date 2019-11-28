@@ -15,4 +15,9 @@ public class BillingServiceImpl implements BillingService {
         if (transfer != null) return true;
         else return false;
     }
+
+    public void changeStatusUser(Integer id) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.put("http://localhost:8081/api/users/" + id, null);
+    }
 }
