@@ -29,10 +29,10 @@ public class Users {
         return blocked;
     }
 
-    public void setBlocked(Boolean blocked) {
+    public void setBlocked(boolean blocked) {
         this.blocked = blocked;
     }
-//public Integer amount = 15;
+
 
     @OneToMany(mappedBy = "user")
     private List<UsersSubscriptions> userSubscriptions;

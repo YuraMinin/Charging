@@ -35,6 +35,7 @@ public class UserController {
 
     @RequestMapping(value = "/authorization", method = RequestMethod.POST)
     public Users authorizationUser(@RequestBody Users user) {
+
         return userService.authorization(user);
     }
 

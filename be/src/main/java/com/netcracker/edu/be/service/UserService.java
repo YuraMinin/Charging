@@ -10,4 +10,5 @@ public interface UserService {
     Optional<Users> findById(Integer id);
     Users authorization(Users user);
     Users save(Users user);
+    void blocked(Integer id);
 }

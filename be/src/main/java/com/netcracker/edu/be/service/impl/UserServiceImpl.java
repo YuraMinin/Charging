@@ -42,5 +42,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(newUser);
     }
 
+    public void blocked(Integer id) {
+        if (userRepository.findById(id).isPresent()) {
+            userRepository.findById(id).get().setBlocked(!userRepository.findById(id).get().getBlocked());
+            userRepository.save(userRepository.findById(id).get());
+        }
+    }
+
 
 }
