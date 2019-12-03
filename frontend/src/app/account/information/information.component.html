@@ -6,14 +6,14 @@
   <div class="row">
     <div class="col">
       <div class="last-name">
-        <label>Last Name: <b> {{user?.lastName}} </b> </label>
+        <label>Last Name: <b> {{User()?.lastName}} </b> </label>
       </div>
       <div class="first-name">
-        <label>First Name: <b> {{user?.firstName}} </b> </label>
+        <label>First Name: <b> {{User()?.firstName}} </b> </label>
       </div>
     </div>
     <div class="col">
-      <label>Balance: <b> {{user?.billingAccounts[0].amount}} </b> </label>
+      <label>Balance: <b> {{User()?.billingAccounts[0].amount}} </b> </label>
       <div>
         <button class="btn btn-success" type="button" routerLink="/billingaccount">E-wallet</button>
       </div>

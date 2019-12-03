@@ -34,7 +34,7 @@
                     </div>
 
                     <input type="text" id="card" name="card" formControlName="numCard" placeholder="Number of card"
-                           class="form-control form-control-sm my-3">
+                           class="form-control form-control-sm my-3" [textMask]="{mask: mask}">
                     <div *ngIf="myForm.controls['numCard'].invalid && myForm.controls['numCard'].touched">
                         <p class="text-danger font-weight-bold small ml-1"> Card number entered incorrectly, example:
                             **** **** **** ****</p>

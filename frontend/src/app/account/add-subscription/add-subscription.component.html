@@ -34,7 +34,7 @@
         <button type="button" class="btn btn-success" [disabled]="!FormAddSub.valid"
                 (click)="date.addSubscription(FormAddSub.controls['SubscriptionName'].value,
                  FormAddSub.controls['SubscriptionCost'].value)"
-                data-dismiss="modal">Add</button>
+                data-dismiss="modal" [routerLink]="['/products', 0]">Add</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>

@@ -20,6 +20,8 @@ export class RegisterComponent implements OnInit {
     public newPassword: string;
     public canRegister: boolean;
     public failedLogin = false;
+    private mask = [/[1-9]/, /\d/, /\d/, /\d/,' ', /\d/, /\d/, /\d/, /\d/,' ', /\d/, /\d/, /\d/, /\d/,' ',
+        /\d/, /\d/, /\d/, /\d/];
     myForm: FormGroup;
 
 

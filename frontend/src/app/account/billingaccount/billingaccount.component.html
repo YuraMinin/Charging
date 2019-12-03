@@ -14,7 +14,7 @@
 <span class="badge badge-warning mt-3 ml-3">Transfer of money</span>
 <div class="d-flex">
   <div class="shadow-lg p-4 mb-4 bg-white ml-3 mr-3">
-    <input [(ngModel)]="numberCard" type="text" name="number-card"
+    <input [(ngModel)]="numberCard" [textMask]="{mask: mask}" type="text" name="number-card"
            placeholder="Input number of card" class="form-control form-control">
     <input [(ngModel)]="AmountTransfer" type="text" name="number-card"
            placeholder="Amount" class="form-control form-controlmb-3 my-3">

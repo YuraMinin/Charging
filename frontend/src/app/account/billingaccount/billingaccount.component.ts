@@ -18,6 +18,9 @@ export class BillingaccountComponent implements OnInit, OnDestroy {
     public correctData = true;
     private billingStorage: Subscription = new Subscription();
     private user: Users;
+    private mask = [/[1-9]/, /\d/, /\d/, /\d/,' ', /\d/, /\d/, /\d/, /\d/,' ', /\d/, /\d/, /\d/, /\d/,' ',
+        /\d/, /\d/, /\d/, /\d/];
+
 
 
     constructor(private date: UserService) {

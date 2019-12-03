@@ -15,19 +15,22 @@ import { RegisterComponent } from './register/register.component';
 import { ManagementUsersComponent } from './management-users/management-users.component';
 import { ViewSubscriptionAdminComponent } from './view-subscription-admin/view-subscription-admin.component';
 import { AddSubscriptionComponent } from './add-subscription/add-subscription.component';
+import { ViewAllSubscriptionsComponent } from './view-all-subscriptions/view-all-subscriptions.component';
+import {TextMaskModule} from "angular2-text-mask";
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    BrowserModule,
-    FormsModule,
-    ModelModule,
-    RouterModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        CommonModule,
+        BrowserModule,
+        FormsModule,
+        ModelModule,
+        RouterModule,
+        ReactiveFormsModule,
+        TextMaskModule
+    ],
   declarations: [SubscriptionComponent, InformationComponent, AuthorizationComponent, BillingaccountComponent,
-    AdminComponent, ManagementSubscriptionComponent, NavBarComponent, RegisterComponent, ManagementUsersComponent, ViewSubscriptionAdminComponent, AddSubscriptionComponent],
+    AdminComponent, ManagementSubscriptionComponent, NavBarComponent, RegisterComponent, ManagementUsersComponent, ViewSubscriptionAdminComponent, AddSubscriptionComponent, ViewAllSubscriptionsComponent],
   exports: [SubscriptionComponent, InformationComponent, AuthorizationComponent,
     BillingaccountComponent]
 })

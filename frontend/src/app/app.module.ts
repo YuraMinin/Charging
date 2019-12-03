@@ -13,11 +13,14 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {ChargingFirstGuard} from './chargingFirst.guard';
 import {HttpClientModule} from '@angular/common/http';
 import {HttpService} from './HttpService';
+import {ViewAllSubscriptionsComponent} from "./account/view-all-subscriptions/view-all-subscriptions.component";
+import {TextMaskModule} from "angular2-text-mask";
 
 @NgModule({
   imports: [
     BrowserModule,
     AccountModule,
+    TextMaskModule,
     RouterModule.forRoot([
       {
         path: 'account', component: InformationComponent,
@@ -30,7 +33,9 @@ import {HttpService} from './HttpService';
       {path: 'admin', component: AdminComponent, canActivate: [ChargingFirstGuard]},
       {path: 'authorization', component: AuthorizationComponent, canActivate: [ChargingFirstGuard]},
       {path: 'products/:id', component: ViewSubscriptionAdminComponent, canActivate: [ChargingFirstGuard]},
-      {path: '**', redirectTo: '/authorization', canActivate: [ChargingFirstGuard]}
+      {path: 'allsubscriptions', component: ViewAllSubscriptionsComponent},
+      {path: '**', redirectTo: '/authorization', canActivate: [ChargingFirstGuard]},
+
     ]),
     ReactiveFormsModule,
     HttpClientModule

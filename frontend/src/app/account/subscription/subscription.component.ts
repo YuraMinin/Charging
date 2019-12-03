@@ -22,7 +22,11 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
     constructor(private data: UserService) {
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        setInterval(() => {
+            this.data.setUpdate();
+        }, 20000);
+    }
 
     // Get Products with pagination
     get products(): Subscriptions[] {

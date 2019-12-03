@@ -4,27 +4,36 @@ import {Users} from '../../model/Users';
 import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-information',
-  templateUrl: './information.component.html',
-  styleUrls: ['./information.component.css']
+    selector: 'app-information',
+    templateUrl: './information.component.html',
+    styleUrls: ['./information.component.css']
 })
 export class InformationComponent implements OnInit, OnDestroy {
 
-  nameComponent = 'Account';
-  private userStorage: Subscription = new Subscription();
-  private user: Users;
+    nameComponent = 'Account';
+    private userStorage: Subscription = new Subscription();
+    private user: Users;
 
-  constructor(private data: UserService) {
-  }
+    constructor(private data: UserService) {
 
-  ngOnInit() {
-    this.userStorage.add(this.data.getUserHttp(this.data.idUser).subscribe((user: Users) => {
-      this.user = user;
-    }));
-  }
+    }
 
-  ngOnDestroy(): void {
-    this.userStorage.unsubscribe();
-  }
+    User() : Users {
+        this.userStorage.add(this.data.getUserHttp(this.data.idUser).subscribe((user: Users) => {
+            this.user = user;
+        }));
+
+        return this.user;
+    }
+
+    ngOnInit() {
+        setInterval(() => {
+            this.data.setUpdate();
+        }, 5000);
+    }
+
+    ngOnDestroy(): void {
+        this.userStorage.unsubscribe();
+    }
 }
 
