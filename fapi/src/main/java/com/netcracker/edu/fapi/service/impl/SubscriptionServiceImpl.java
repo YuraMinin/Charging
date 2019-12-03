@@ -28,6 +28,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         }
 
         List<Subscription> subscription = Arrays.asList(subscriptions);
+
+        if (id.equals(0)) {
+            return subscription;
+        }
+
         List<Subscription> userSubscriptions = userService.findById(id).subscriptions;
 
         for (Subscription allItem: subscription) {
