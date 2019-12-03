@@ -65,4 +65,9 @@ public class BillingAccountServiceImpl implements BillingAccountService {
     public void deleteById(Integer id) {
         billingAccountRepository.deleteById(id);
     }
+
+    @Override
+    public void update(BillingAccounts billingAccounts) {
+        billingAccountRepository.save(billingAccounts);
+    }
 }

@@ -38,12 +38,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users save(Users user) {
-        Users newUser = new Users(user);
-        return userRepository.save(newUser);
+        return userRepository.save(user);
     }
 
     public void blocked(Integer id) {
         if (userRepository.findById(id).isPresent()) {
+            System.out.println("Blocked!!!");
             userRepository.findById(id).get().setBlocked(!userRepository.findById(id).get().getBlocked());
             userRepository.save(userRepository.findById(id).get());
         }

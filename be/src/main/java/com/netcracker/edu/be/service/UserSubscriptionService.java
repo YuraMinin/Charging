@@ -10,6 +10,7 @@ public interface UserSubscriptionService {
     List<UsersSubscriptions> findAll();
     Optional <UsersSubscriptions> findById(Integer id);
     UsersSubscriptions save(String period, Integer idUser, Integer idSubscription);
+    void update(UsersSubscriptions usersSubscription);
     void deleteById(Integer id);
 
 }

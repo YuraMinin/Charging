@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,9 +38,15 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
     @Override
     public UsersSubscriptions save(String period, Integer idUser, Integer idSubscription) {
 
+        LocalTime timeOn = LocalTime.now();
+        LocalTime timeOff = LocalTime.of(timeOn.getHour(), timeOn.getMinute(), timeOn.getSecond());
+        timeOff = timeOff.plusMinutes(Long.parseLong(period));
+
         if (userService.findById(idUser).isPresent() && subscriptionService.findById(idSubscription).isPresent()) {
             UsersSubscriptions newUsersSubscription = new UsersSubscriptions(period, userService.findById(idUser).get()
-                    , subscriptionService.findById(idSubscription).get());
+                    ,subscriptionService.findById(idSubscription).get(), timeOn, timeOff);
+
+
 
             return userSubscriptionRepository.save(newUsersSubscription);
         }
@@ -51,6 +58,11 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
     @Override
     public void deleteById(Integer id) {
         userSubscriptionRepository.deleteById(id);
+    }
+
+    @Override
+    public void update(UsersSubscriptions usersSubscription) {
+        userSubscriptionRepository.save(usersSubscription);
     }
 
 }

@@ -1,5 +1,8 @@
 package com.netcracker.edu.be.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import net.minidev.json.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalTime;
 
@@ -18,8 +21,12 @@ public class UsersSubscriptions {
     @Column(name = "time_on")
     private LocalTime timeOn;
 
+    @Column(name = "time_off")
+    private LocalTime timeOff;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private Users user;
 
     @ManyToOne
@@ -28,10 +35,13 @@ public class UsersSubscriptions {
 
     public UsersSubscriptions() {}
 
-    public UsersSubscriptions(String period, Users user, Subscriptions subscription) {
+    public UsersSubscriptions(String period, Users user, Subscriptions subscription, LocalTime time,
+                              LocalTime timeOff) {
         super();
         this.period = period;
         this.user = user;
+        this.timeOn = time;
+        this.timeOff = timeOff;
         this.subscription = subscription;
     }
 
@@ -70,6 +80,16 @@ public class UsersSubscriptions {
 
 
 
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+
+
     /*public Subscriptions getSubscriptions() {
         return subscription;
     }
@@ -82,6 +102,14 @@ public class UsersSubscriptions {
     public String toString() {
         return "subscriptions [IdSubscription=" + IdSubscription + ", name=" + subscription.getName() + ", cost=" + subscription.getCost()
                 + ", period=" + period + "]";
+    }
+
+    public LocalTime getTimeOff() {
+        return timeOff;
+    }
+
+    public void setTimeOff(LocalTime timeOff) {
+        this.timeOff = timeOff;
     }
 
 

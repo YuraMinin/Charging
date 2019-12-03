@@ -1,5 +1,7 @@
 package com.netcracker.edu.be.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -35,9 +37,10 @@ public class Users {
 
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private List<UsersSubscriptions> userSubscriptions;
 
-    @OneToMany(mappedBy = "billing")
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "billing")
     private List<BillingAccounts> billingAccounts;
 
     public Users() {}
@@ -119,4 +122,5 @@ public class Users {
     public void addSubscription(UsersSubscriptions usersSubscription) {
         this.userSubscriptions.add(usersSubscription);
     }
+
 }

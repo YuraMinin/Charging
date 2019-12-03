@@ -1,8 +1,6 @@
 package com.netcracker.edu.be.controller;
 
-import com.netcracker.edu.be.entity.Subscriptions;
 import com.netcracker.edu.be.entity.Users;
-import com.netcracker.edu.be.repository.UserRepository;
 import com.netcracker.edu.be.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
