@@ -1,9 +1,9 @@
-<div class="alert alert-secondary">
+<div class="alert alert-danger mr-3 ml-3 my-3">
     <h2>Subscription Charging Service</h2>
 </div>
-<div class="shadow-lg bg-white">
+<div class="shadow-lg bg-white mr-3 ml-3">
     <table class="table table-sm table-borderless">
-        <thead class="thead-dark">
+        <thead class="thead-light">
         <tr>
             <th>Number</th>
             <th>Name of subscription</th>
@@ -11,11 +11,28 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let product of Subscriptions()">
-            <td>{{product.id}}</td>
-            <td><div><b>{{product.name}}</b></div></td>
+        <tr *ngFor="let product of products; let idx = index">
+            <td>{{idx + productPerPage * (page - 1) + 1}}</td>
+            <td>
+                <div><b>{{product.name}}</b></div>
+            </td>
             <td>{{product.cost}}</td>
         </tbody>
     </table>
+</div>
+
+
+<div *ngIf="countProducts && products">
+
+    <div class="d-flex flex-row-reverse">
+
+        <div class="btn-group btn-group-sm ml-auto mr-3">
+            <button *ngFor="let page of pageNumbers" (click)="changePage(page)"
+                    class="btn btn-outline-danger" [class.active]="page == selectedPage">
+                {{page}}
+            </button>
+        </div>
+
+    </div>
 </div>
 

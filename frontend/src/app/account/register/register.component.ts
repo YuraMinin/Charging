@@ -73,6 +73,7 @@ export class RegisterComponent implements OnInit {
             } else if (id > 0) {
                 this.date.setUpdate();
                 this.router.navigateByUrl('/account');
+                document.getElementById("closeRegister").click();
             }
         });
     }

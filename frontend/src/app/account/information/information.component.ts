@@ -28,7 +28,7 @@ export class InformationComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         setInterval(() => {
-            this.data.setUpdate();
+            this.data.updateUser();
         }, 5000);
     }
 

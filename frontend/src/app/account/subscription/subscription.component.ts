@@ -24,8 +24,8 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         setInterval(() => {
-            this.data.setUpdate();
-        }, 20000);
+            this.data.updateSubscriptions();
+        }, 30000);
     }
 
     // Get Products with pagination

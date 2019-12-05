@@ -12,8 +12,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let product of Subscriptions()">
-            <td>{{product.id}}</td>
+        <tr *ngFor="let product of products; let idx = index">
+            <td>{{idx + productPerPage * (page - 1) + 1}}</td>
             <td>{{product.name}}</td>
             <td>
                 <div *ngIf="id > 0">
@@ -27,4 +27,28 @@
     </table>
 </div>
 
-<button class="btn btn-success btn-sm ml-3 my-1" type="button" routerLink="/admin">Return to Admin Account</button>
+<div *ngIf="countProducts && products">
+    <div class="d-flex">
+        <div class="dropup dropright ml-3">
+            <button type="button" class="btn btn-outline-danger dropdown-toggle small" data-toggle="dropdown">
+                {{productPerPage}}
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" (click)="changePageSize(3)">3</a>
+                <a class="dropdown-item" (click)="changePageSize(5)">5</a>
+                <a class="dropdown-item" (click)="changePageSize(7)">7</a>
+                <a class="dropdown-item" (click)="changePageSize(10)">10</a>
+
+            </div>
+        </div>
+
+        <div class="btn-group btn-group-sm ml-auto mr-3">
+            <button *ngFor="let page of pageNumbers" (click)="changePage(page)"
+                    class="btn btn-outline-danger" [class.active]="page == selectedPage">
+                {{page}}
+            </button>
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-danger btn-sm ml-3 my-3" type="button" routerLink="/admin">Return to Admin Account</button>

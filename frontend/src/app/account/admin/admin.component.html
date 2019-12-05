@@ -35,5 +35,6 @@
 
 <div>
     <app-add-subscription></app-add-subscription>
-    <button type="button" class="btn btn-success" [routerLink]="['/products', 0]">View Subscriptions</button>
+    <button type="button" class="btn btn-success" (click)="date.updateSubscriptions()"
+            [routerLink]="['/products', 0]">View Subscriptions</button>
 </div>

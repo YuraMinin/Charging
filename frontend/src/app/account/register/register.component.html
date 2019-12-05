@@ -1,6 +1,6 @@
 <!--Register Users-->
 
-<button type="button" class="btn btn-link btn-sm" data-toggle="modal" data-target="#myModal">
+<button type="button" class="btn btn-secondary btn-sm my-1 mr-2" data-toggle="modal" data-target="#myModal">
     Register
 </button>
 
@@ -13,7 +13,7 @@
             <!-- Register Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Register</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" id = "closeRegister">&times;</button>
             </div>
 
             <form [formGroup]="myForm" novalidate (ngSubmit)="onSubmit()">
@@ -80,7 +80,7 @@
                 <button type="submit" [disabled]="!myForm.valid || !canRegister" [class]="getClassMap()"
                         (click)="Register(myForm.controls['firstName'].value, myForm.controls['lastName'].value,
                 myForm.controls['userLogin'].value, myForm.controls['userPassword'].value,
-                myForm.controls['numCard'].value, myForm.controls['userEmail'].value)" data-dismiss ="modal">
+                myForm.controls['numCard'].value, myForm.controls['userEmail'].value)">
                     OK
                 </button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

@@ -95,6 +95,19 @@ export class UserService {
         this.updateUserID = true;
         this.updateSubscription = true;
         this.updateCount = true;
+
+
+    }
+
+    public updateUser(): void {
+        this.updateUsers = true;
+        this.updateUserID = true;
+    }
+
+    // Update Subscription
+    public updateSubscriptions(): void {
+        this.updateSubscription = true;
+        this.updateCount = true;
     }
 
     // Modify information on user_ID (E_wallet, Blocked user)
