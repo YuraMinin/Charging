@@ -16,18 +16,19 @@ public class ProductsController {
     private SubscriptionService subscriptionService;
 
     // All products user
-    @GetMapping("/{id}/products")
+   /* @GetMapping("/{id}/products")
     public List<Subscription> getAllUsersProduct(@PathVariable Integer id) {
 
         return subscriptionService.findAll(id);
-    }
+    }*/
 
-    @GetMapping(value = "/{id}/products", params = {"offset", "limit"})
+    @GetMapping(value = "/{id}/products", params = {"offset", "limit", "name"})
     public List<Subscription> getUserProducts(@PathVariable("id") int id,
                                               @RequestParam("offset") int offset,
-                                              @RequestParam("limit") int limit) {
+                                              @RequestParam("limit") int limit,
+                                              @RequestParam("name") String name) {
 
-        return subscriptionService.findPage(id, limit, offset);
+        return subscriptionService.findPage(id, limit, offset, name);
     }
 
     @GetMapping("/{id}/products/count")

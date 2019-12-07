@@ -20,10 +20,19 @@ public class UsersController {
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public List<UserEntity> getAllUsers(){
 
-        return userService.findAll();
+
+    @GetMapping(value = "", params = {"offset", "limit"})
+    public List<UserEntity> getAllUsers(@RequestParam("offset") int offset,
+                                        @RequestParam("limit") int limit){
+
+        return userService.findAll(offset, limit);
+    }
+
+    @GetMapping("/count")
+    public Integer getCountUser(){
+
+        return userService.count();
     }
 
     @GetMapping("/{id}")
@@ -36,7 +45,6 @@ public class UsersController {
     @PostMapping
     public Integer createUser(@Valid @RequestBody UserEntity user) {
 
-        System.out.println("Email" + user.email);
         return userService.save(user).id;
     }
 

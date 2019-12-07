@@ -1,6 +1,5 @@
 package com.netcracker.edu.fapi.service.impl;
 
-import com.netcracker.edu.fapi.models.BillingAccount;
 import com.netcracker.edu.fapi.models.UserEntity;
 import com.netcracker.edu.fapi.service.UserService;
 import org.springframework.stereotype.Service;
@@ -12,14 +11,41 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    /*@Value("${backend.server.url}")
-    private String backendServerUrl;*/
+
+    @Override
+    public List<UserEntity> findAll(Integer offset, Integer limit) {
+
+        List<UserEntity> users;
+
+        RestTemplate restTemplate = new RestTemplate();
+        UserEntity[] userResponse = restTemplate.getForObject("http://localhost:8081/api/users", UserEntity[].class);
+        if (userResponse == null) {
+            users = Collections.emptyList();
+            return users;
+        } else {
+            users = Arrays.asList(userResponse);
+            int count = offset + limit;
+            if (count > users.size()) {
+                count = users.size();
+            }
+
+            return users.subList(offset, count);
+        }
+    }
 
     @Override
     public List<UserEntity> findAll() {
+        List<UserEntity> users;
+
         RestTemplate restTemplate = new RestTemplate();
         UserEntity[] userResponse = restTemplate.getForObject("http://localhost:8081/api/users", UserEntity[].class);
-        return userResponse == null ? Collections.emptyList() : Arrays.asList(userResponse);
+        if (userResponse == null) {
+            users = Collections.emptyList();
+            return users;
+        } else {
+            users = Arrays.asList(userResponse);
+            return users;
+        }
     }
 
     @Override
@@ -27,12 +53,10 @@ public class UserServiceImpl implements UserService {
         RestTemplate restTemplate = new RestTemplate();
         UserEntity user = restTemplate.getForObject("http://localhost:8081/api/users/" + id,
                 UserEntity.class);
-        /*Integer amountMoney = restTemplate.getForObject("http://localhost:8081/api/users/" + id + "/billing",
-                BillingAccount.class).amount;*/
+
         if (user != null) {
             user.password = null;
             user.login = null;
-            // user.balance = amountMoney;
         }
         return user;
     }
@@ -65,6 +89,12 @@ public class UserServiceImpl implements UserService {
             newuser.id = -1;
             return newuser;
         } else return newUser;
-
     }
+
+    public Integer count() {
+        return findAll().size();
+    }
+
+
+
 }
