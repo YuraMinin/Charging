@@ -6,6 +6,7 @@ import com.netcracker.edu.be.service.UserSubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,10 +19,18 @@ public class SubscriptionController {
     @Autowired
     private UserSubscriptionService userSubscriptionService;
 
-    @GetMapping(value = "/subscriptions")
+    /*@GetMapping(value = "/subscriptions")
     public List<Subscriptions> getAllSubscription() {
 
         return subscriptionService.findAll();
+    }*/
+
+    @GetMapping(value = "/subscriptions", params = {"offset", "limit", "name"})
+    public List<Subscriptions> getAllSubscriptions(@Valid @RequestParam("offset") int offset,
+                                                      @Valid @RequestParam("limit") int limit,
+                                                      @Valid @RequestParam("name") String name) {
+
+        return subscriptionService.findByName(offset, limit, name);
     }
 
     // Add new Subscription
@@ -43,6 +52,12 @@ public class SubscriptionController {
     public void offSubscription(@RequestParam("idSubscription") int idSubscription) {
 
         userSubscriptionService.deleteById(idSubscription);
+    }
+
+    @GetMapping("/subscriptions/count")
+    public int countProducts() {
+
+        return subscriptionService.findAll().size();
     }
 
 }

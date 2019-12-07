@@ -3,6 +3,7 @@ package com.netcracker.edu.be.service.impl;
 import com.netcracker.edu.be.entity.BillingAccounts;
 import com.netcracker.edu.be.entity.Users;
 import com.netcracker.edu.be.entity.UsersSubscriptions;
+import com.netcracker.edu.be.repository.UserRepository;
 import com.netcracker.edu.be.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,26 +16,30 @@ public class WriteOffServiceImpl implements WriteOffService{
     private UserSubscriptionService userSubscriptionService;
     private BillingAccountService billingAccountService;
     private SubscriptionService subscriptionService;
+    private UserRepository userRepository;
 
     @Autowired
     public WriteOffServiceImpl(UserService userService, UserSubscriptionService userSubscriptionService,
-                               BillingAccountService billingAccountService, SubscriptionService subscriptionService) {
+                               BillingAccountService billingAccountService, SubscriptionService subscriptionService,
+                               UserRepository userRepository) {
         this.userService = userService;
         this.userSubscriptionService = userSubscriptionService;
         this.billingAccountService = billingAccountService;
         this.subscriptionService = subscriptionService;
+        this.userRepository = userRepository;
     }
 
 
     public void blockedUser() {
 
         for (Users item : userService.findAll()) {
-            if (item.getBillingAccounts().get(0).getAmount() <= 0) {
+            if (item.getBillingAccounts().get(0).getAmount() <= 0 && !item.getBlocked()) {
                 item.setBlocked(true);
-                userService.save(item);
+                userRepository.save(item);
+                System.out.println(item.getLastName() + " amount =  " + item.getBillingAccounts().get(0).getAmount());
             } else if (item.getBillingAccounts().get(0).getAmount() > 0 && item.getBlocked()) {
                 item.setBlocked(false);
-                userService.save(item);
+                userRepository.save(item);
             }
 
         }

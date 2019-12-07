@@ -38,6 +38,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users save(Users user) {
+        for (Users item : userRepository.findAll()) {
+            if (item.getLogin().equals(user.getLogin())){
+                user.setId(-1);
+                return user;
+            }
+        }
         return userRepository.save(user);
     }
 

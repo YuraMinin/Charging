@@ -1,5 +1,6 @@
 package com.netcracker.edu.be.controller;
 
+import com.netcracker.edu.be.entity.Subscriptions;
 import com.netcracker.edu.be.entity.Users;
 import com.netcracker.edu.be.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,13 @@ public class UserController {
 
         return userService.authorization(user);
     }
+
+    /*@GetMapping(value = "", params = {"offset", "limit"})
+    public List<Subscriptions> getAllSubscriptions(@RequestParam("offset") int offset,
+                                          @RequestParam("limit") int limit){
+
+        return userService.findAll(offset, limit);
+    }*/
 
 
 

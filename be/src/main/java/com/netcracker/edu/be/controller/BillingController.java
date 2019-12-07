@@ -12,12 +12,14 @@ import java.io.Console;
 @RequestMapping("/api/users")
 public class BillingController {
 
-    @Autowired
     private BillingAccountService billingAccountService;
-
-    @Autowired
     private UserService userService;
 
+    @Autowired
+    public BillingController(UserService userService, BillingAccountService billingAccountService) {
+        this.billingAccountService = billingAccountService;
+        this.userService = userService;
+    }
 
     @PostMapping("{id}/billing")
     public void createBillingAccount(@PathVariable Integer id, @RequestBody BillingAccounts billingAccount) {
@@ -28,7 +30,6 @@ public class BillingController {
     public boolean transferMoney(@PathVariable Integer id,
                                  @RequestParam("amount") int amount,
                                  @RequestBody BillingAccounts billingAccount) {
-        System.out.println(amount);
         return billingAccountService.transferMoney(id, billingAccount, amount);
     }
 

@@ -7,8 +7,7 @@ import com.netcracker.edu.be.service.SubscriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class SubscriptionServiceImpl implements SubscriptionService {
@@ -28,13 +27,34 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public Optional<Subscriptions> findById(Integer id) {
 
         return subscriptionRepository.findById(id);
-        //return userRepository.findById(1).
+        //return userRepository.findByUserId(1).
     }
 
     @Override
     public Subscriptions save(Subscriptions subscription) {
         Subscriptions newSubscription = new Subscriptions(subscription.getName(), subscription.getCost());
         return subscriptionRepository.save(newSubscription);
+    }
+
+    @Override
+    public List<Subscriptions> findByName(Integer offset, Integer limit, String name) {
+        List<Subscriptions> subscriptions = new ArrayList<>();
+
+        if (name.equals("")){
+            return (List<Subscriptions>) subscriptionRepository.findAll();
+        }
+        for (Subscriptions item : findAll()) {
+            if (item.getName().contains(name)) {
+                subscriptions.add(item);
+            }
+        }
+
+        int count = offset + limit;
+        if (count > subscriptions.size()) {
+            count = subscriptions.size();
+        }
+        return subscriptions.subList(offset, count);
+
     }
 
     @Override

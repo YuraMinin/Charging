@@ -8,6 +8,8 @@ import java.util.Optional;
 public interface SubscriptionService {
     List<Subscriptions> findAll();
 
+    List<Subscriptions> findByName(Integer offset, Integer limit, String name);
+
     Optional<Subscriptions> findById(Integer id);
 
     Subscriptions save(Subscriptions subscription);

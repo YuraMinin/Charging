@@ -26,10 +26,10 @@ public class BillingAccountServiceImpl implements BillingAccountService {
     }
 
     @Override
-    public BillingAccounts findById(Integer id) {
+    public BillingAccounts findByUserId(Integer id) {
 
         return userService.findById(id).get().getBillingAccounts().get(0);
-        //return billingAccountRepository.findById(id);
+        //return billingAccountRepository.findByUserId(id);
     }
 
     @Override
@@ -50,15 +50,17 @@ public class BillingAccountServiceImpl implements BillingAccountService {
             if (user.getBillingAccounts().get(0).getNumberCard().equals(billingAccounts.getNumberCard())) {
                 user.getBillingAccounts().get(0).setAmount(amount);
                 billingAccountRepository.save(user.getBillingAccounts().get(0));
-
                 return true;
-            } else {
-                return false;
             }
-        } else {
             return false;
         }
 
+        return false;
+    }
+
+    @Override
+    public BillingAccounts findById(Integer id) {
+        return billingAccountRepository.findById(id).get();
     }
 
     @Override
