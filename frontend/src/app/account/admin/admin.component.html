@@ -16,7 +16,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let user of Users(); let idx = index">
-            <td>{{user.id}}</td>
+            <td>{{idx + usersPerPage * (page - 1) + 1}}</td>
             <td><b> {{user.lastName}}</b></td>
             <td>{{user.billingAccounts[0].amount}}</td>
             <td><p [class]="getClassMap(idx)"> {{userStatus(idx)}} </p></td>
@@ -26,15 +26,43 @@
                 </button>
             </td>
             <td>
-                <app-management-users [idUser]="idx + 1"></app-management-users>
+                <div class="d-flex justify-content-start">
+                    <app-management-users [idUser]="idx + 1"></app-management-users>
+                    <div class="custom-control custom-switch ml-1">
+                        <input type="checkbox" class="custom-control-input" id="switch + {{idx}}" name="example">
+                        <label class="custom-control-label" for="switch + {{idx}}">Admin</label>
+                    </div>
+                </div>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
 
+<div *ngIf="users && count">
+    <div class="d-flex my-2">
+        <div class="dropup dropright ml-3">
+            <button type="button" class="btn btn-outline-danger dropdown-toggle small" data-toggle="dropdown">
+                {{usersPerPage}}
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" (click)="changePageSize(3)">3</a>
+                <a class="dropdown-item" (click)="changePageSize(5)">5</a>
+                <a class="dropdown-item" (click)="changePageSize(7)">7</a>
+            </div>
+        </div>
+
+        <div class="btn-group btn-group-sm ml-auto mr-3">
+            <button *ngFor="let page of pageNumbers" (click)="changePage(page)"
+                    class="btn btn-outline-danger" [class.active]="page == selectedPage">
+                {{page}}
+            </button>
+        </div>
+    </div>
+</div>
 <div>
     <app-add-subscription></app-add-subscription>
     <button type="button" class="btn btn-success" (click)="date.updateSubscriptions()"
-            [routerLink]="['/products', 0]">View Subscriptions</button>
+            [routerLink]="['/products', 0]">View Subscriptions
+    </button>
 </div>

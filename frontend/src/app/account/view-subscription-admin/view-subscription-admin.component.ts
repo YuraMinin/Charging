@@ -34,7 +34,7 @@ export class ViewSubscriptionAdminComponent implements OnInit, OnDestroy {
 
   get products() {
     this.subscriptionStorage.add(this.date.getUserSubscription(this.id, (this.page - 1) * this.productPerPage,
-        this.productPerPage).subscribe((subscriptions: Subscriptions[]) => {
+        this.productPerPage, "").subscribe((subscriptions: Subscriptions[]) => {
       this.subscriptionsUser = subscriptions;
     }));
     return this.subscriptionsUser;

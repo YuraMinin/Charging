@@ -37,7 +37,8 @@ export class AuthorizationComponent implements OnInit {
                 } else if (id === -1) {
                     this.failedData = true;
                 } else if (id > 0) {
-                    this.date.setUpdate();
+                    this.date.updateUser();
+                    this.date.updateSubscriptions();
                     this.router.navigateByUrl('/account');
                     document.getElementById("close").click();
                 }

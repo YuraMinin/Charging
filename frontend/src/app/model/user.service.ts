@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Observable, ReplaySubject, Subject, Subscription} from 'rxjs';
+import {Observable, ReplaySubject, Subject, Subscription, throwError} from 'rxjs';
 import {Users} from './Users';
 import {HttpService} from '../HttpService';
 import {Subscriptions} from './Subscriptions';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
+import {catchError} from "rxjs/operators";
 
 @Injectable()
 export class UserService {
@@ -36,6 +37,7 @@ export class UserService {
     private updateUserID = true;
     private updateSubscription = true;
     private updateCount = true;
+    private updateCountUsers = true;
 
     constructor(private http: HttpService, private httpClient: HttpClient, private router: Router) {
     }
@@ -49,10 +51,11 @@ export class UserService {
     }
 
     // Get all users for admin
-    public getUsersHttp(): Observable<Users[]> {
+    public getUsersHttp(offset: number, limit: number): Observable<Users[]> {
         if (this.updateUsers) {
             this.users = new ReplaySubject(1);
-            this.http.get('http://localhost:8080/api/users').subscribe((users: Users[]) => {
+            this.http.get('http://localhost:8080/api/users?offset=' + offset + '&limit=' + limit).
+            subscribe((users: Users[]) => {
                 this.usersStorage = users;
                 this.users.next(users);
             });
@@ -76,7 +79,7 @@ export class UserService {
     }
 
     // Get user_ID Subscription (Admin and User)
-    public getUserSubscriptionHttp(id: number): Observable<Subscriptions[]> {
+   /* public getUserSubscriptionHttp(id: number): Observable<Subscriptions[]> {
         if (!this.subscription || this.updateSubscription || id !== this.idUser) {
             this.subscription = new ReplaySubject(1);
             this.http.get('http://localhost:8080/api/users/' + id + '/products').subscribe((subscription: Subscriptions[]) => {
@@ -87,7 +90,7 @@ export class UserService {
         this.idUser = id;
         this.updateSubscription = false;
         return this.subscription.asObservable();
-    }
+    }*/
 
     // Update date on SC
     public setUpdate(): void {
@@ -102,6 +105,7 @@ export class UserService {
     public updateUser(): void {
         this.updateUsers = true;
         this.updateUserID = true;
+        this.updateCountUsers = true;
     }
 
     // Update Subscription
@@ -173,20 +177,39 @@ export class UserService {
             this.httpClient.get<number>('http://localhost:8080/api/users/' + id + '/products/count').subscribe(
                 (count: number) => {
                     this.subsID.next(count);
+                },
+                err => {
+                    this.subscription.error(err);
                 });
         }
         this.updateCount = false;
         return this.subsID.asObservable();
     }
 
-    public getUserSubscription(id: number, offset: number, limit: number): Observable<Subscriptions[]> {
+    public countUsers(): Observable<number> {
+        if (this.updateCountUsers) {
+            this.subsID = new ReplaySubject(1);
+            this.httpClient.get<number>('http://localhost:8080/api/users/count').subscribe(
+                (count: number) => {
+                    this.subsID.next(count);
+                });
+        }
+        this.updateCountUsers = false;
+        return this.subsID.asObservable();
+    }
+
+    public getUserSubscription(id: number, offset: number, limit: number, name: String): Observable<Subscriptions[]> {
         if (!this.subscription || this.updateSubscription || id !== this.idUser) {
             this.subscription = new ReplaySubject(1);
-            this.http.get('http://localhost:8080/api/users/' + id + '/products?offset=' + offset + '&limit=' + limit)
+            this.http.get('http://localhost:8080/api/users/' + id + '/products?offset=' + offset + '&limit=' + limit +
+            '&name=' + name)
                 .subscribe((subscription: Subscriptions[]) => {
                 this.userSubscription = subscription;
                 this.subscription.next(subscription);
-            });
+            },
+                err => {
+                    this.subscription.error(err);
+                })
         }
         this.idUser = id;
         this.updateSubscription = false;

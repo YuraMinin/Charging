@@ -18,6 +18,8 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
     private subscriptionStorage: Subscription = new Subscription();
     private count: number;
     private page = 1;
+    private findSubscriptions = "";
+    private find = "";
 
     constructor(private data: UserService) {
     }
@@ -30,10 +32,19 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
 
     // Get Products with pagination
     get products(): Subscriptions[] {
+
+        if (this.find !== this.findSubscriptions){
+            this.data.updateSubscriptions();
+            this.find = this.findSubscriptions;
+            console.log(this.find);
+        }
+
         this.subscriptionStorage.add(this.data.getUserSubscription(this.data.idUser, (this.page - 1) * this.productPerPage,
-            this.productPerPage).subscribe((subscriptions: Subscriptions[]) => {
+            this.productPerPage, this.findSubscriptions).subscribe((subscriptions: Subscriptions[]) => {
             this.subscriptions = subscriptions;
         }));
+
+
         return this.subscriptions;
     }
 

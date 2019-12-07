@@ -1,13 +1,19 @@
-<div class="alert alert-danger mr-3 ml-3 my-3">
+<div class="d-flex justify-content-end">
+    <div *ngIf="error" class="alert alert-danger">
+        <strong>Server Error!</strong> Subscriptions not available
+    </div>
+</div>
+
+<div *ngIf="!error" class="alert alert-secondary mr-3 ml-3 my-3">
     <h2>Subscription Charging Service</h2>
 </div>
-<div class="shadow-lg bg-white mr-3 ml-3">
+<div *ngIf="!error" class="shadow-lg bg-white mr-3 ml-3">
     <table class="table table-sm table-borderless">
         <thead class="thead-light">
         <tr>
             <th>Number</th>
             <th>Name of subscription</th>
-            <th>Cost</th>
+            <th>Cost $</th>
         </tr>
         </thead>
         <tbody>
@@ -22,17 +28,18 @@
 </div>
 
 
-<div *ngIf="countProducts && products">
+<div *ngIf="!error && countProducts && products">
 
     <div class="d-flex flex-row-reverse">
 
         <div class="btn-group btn-group-sm ml-auto mr-3">
             <button *ngFor="let page of pageNumbers" (click)="changePage(page)"
-                    class="btn btn-outline-danger" [class.active]="page == selectedPage">
+                    class="btn btn-outline-success" [class.active]="page == selectedPage">
                 {{page}}
             </button>
         </div>
 
     </div>
 </div>
+
 
