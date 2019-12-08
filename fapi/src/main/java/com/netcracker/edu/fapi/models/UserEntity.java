@@ -11,6 +11,7 @@ public class UserEntity {
     public String password;
     public String email;
     public Boolean blocked;
+    public Boolean admin;
     public Integer balance = 0;
     public String numberCard;
     public Integer amountTransfer;

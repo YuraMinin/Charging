@@ -11,4 +11,5 @@ public interface UserService {
     UserEntity save(UserEntity user);
     Integer count();
     UserEntity authorization(UserEntity user);
+    void managementAdmin(Integer id, Boolean status);
 }

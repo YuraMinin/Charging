@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserEntity save(UserEntity user) {
+        user.admin = false;
         RestTemplate restTemplate = new RestTemplate();
         UserEntity newUser =  restTemplate.postForEntity("http://localhost:8081/api/users", user, UserEntity.class)
                 .getBody();
@@ -88,11 +89,20 @@ public class UserServiceImpl implements UserService {
             UserEntity newuser = new UserEntity();
             newuser.id = -1;
             return newuser;
-        } else return newUser;
+        } else if (newUser.admin.equals(true)) {
+            newUser.id = 0;
+            return newUser;
+        }
+        else return newUser;
     }
 
     public Integer count() {
         return findAll().size();
+    }
+
+    public void managementAdmin(Integer id, Boolean status) {
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.put("http://localhost:8081/api/users/" + id + "/admins", status);
     }
 
 

@@ -54,5 +54,12 @@ public class UsersController {
         return userService.authorization(user).id;
     }
 
+    @PutMapping(value = "/{id}/admins")
+    public void managementAdmin(@PathVariable Integer id,
+                                @RequestBody String status) {
+
+        userService.managementAdmin(id, Boolean.valueOf(status));
+    }
+
 
 }

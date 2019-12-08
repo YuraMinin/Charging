@@ -15,12 +15,6 @@ public class ProductsController {
     @Autowired
     private SubscriptionService subscriptionService;
 
-    // All products user
-   /* @GetMapping("/{id}/products")
-    public List<Subscription> getAllUsersProduct(@PathVariable Integer id) {
-
-        return subscriptionService.findAll(id);
-    }*/
 
     @GetMapping(value = "/{id}/products", params = {"offset", "limit", "name"})
     public List<Subscription> getUserProducts(@PathVariable("id") int id,

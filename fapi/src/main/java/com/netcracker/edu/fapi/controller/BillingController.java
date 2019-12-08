@@ -31,8 +31,11 @@ public class BillingController {
 
 
     @PostMapping("/billing/{id}")
-    public boolean transferMoney(@PathVariable Integer id, @RequestBody UserEntity user) {
-        //return date.transferMoney(id, user);
-        return billingService.transferMoney(id, user, user.amountTransfer);
+    public Integer transferMoney(@PathVariable Integer id, @RequestBody UserEntity user) {
+        if (billingService.transferMoney(id, user, user.amountTransfer)) {
+            return 1;
+        } else return -1;
+
+
     }
 }

@@ -12,8 +12,7 @@ public class BillingServiceImpl implements BillingService {
         Boolean transfer = restTemplate.postForEntity("http://localhost:8081/api/users/" + id
                         + "/billing/transfer?amount=" + amount, user, Boolean.class).getBody();
 
-        if (transfer != null) return true;
-        else return false;
+        return transfer;
     }
 
     public void changeStatusUser(Integer id) {
