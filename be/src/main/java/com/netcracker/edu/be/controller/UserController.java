@@ -6,6 +6,7 @@ import com.netcracker.edu.be.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,13 @@ public class UserController {
 
         return userService.authorization(user);
     }
+
+    @PutMapping(value = "/{id}/admins")
+    public void managementAdmin(@PathVariable(name = "id") Integer id,
+                                @Valid @RequestBody Boolean status) {
+        userService.managementAdmin(id, status);
+    }
+
 
     /*@GetMapping(value = "", params = {"offset", "limit"})
     public List<Subscriptions> getAllSubscriptions(@RequestParam("offset") int offset,

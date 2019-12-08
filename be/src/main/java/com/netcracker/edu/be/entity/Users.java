@@ -27,14 +27,7 @@ public class Users {
 
     private Boolean blocked;
 
-    public Boolean getBlocked() {
-        return blocked;
-    }
-
-    public void setBlocked(boolean blocked) {
-        this.blocked = blocked;
-    }
-
+    private Boolean admin;
 
     @OneToMany(mappedBy = "user")
     @JsonManagedReference
@@ -43,6 +36,7 @@ public class Users {
     @OneToMany(fetch=FetchType.EAGER, mappedBy = "billing")
     private List<BillingAccounts> billingAccounts;
 
+    // constructors
     public Users() {}
 
     public Users(Users user) {
@@ -54,6 +48,8 @@ public class Users {
         this.blocked = false;
     }
 
+
+    // getters and setters
     public List<BillingAccounts> getBillingAccounts() {
         return billingAccounts;
     }
@@ -121,6 +117,22 @@ public class Users {
     // Test
     public void addSubscription(UsersSubscriptions usersSubscription) {
         this.userSubscriptions.add(usersSubscription);
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
+
+    public Boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
     }
 
 }

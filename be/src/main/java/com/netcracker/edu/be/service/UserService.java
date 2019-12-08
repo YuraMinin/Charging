@@ -11,4 +11,5 @@ public interface UserService {
     Users authorization(Users user);
     Users save(Users user);
     void blocked(Integer id);
+    void managementAdmin(Integer id, Boolean status);
 }

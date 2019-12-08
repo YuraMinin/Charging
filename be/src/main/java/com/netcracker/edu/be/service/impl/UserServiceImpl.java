@@ -3,6 +3,7 @@ package com.netcracker.edu.be.service.impl;
 import com.netcracker.edu.be.entity.Users;
 import com.netcracker.edu.be.repository.UserRepository;
 import com.netcracker.edu.be.service.UserService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +54,12 @@ public class UserServiceImpl implements UserService {
             userRepository.findById(id).get().setBlocked(!userRepository.findById(id).get().getBlocked());
             userRepository.save(userRepository.findById(id).get());
         }
+    }
+
+    public void managementAdmin(Integer id, Boolean status) {
+        Users user = userRepository.findById(id).get();
+        user.setAdmin(status);
+        userRepository.save(user);
     }
 
 
