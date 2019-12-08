@@ -17,6 +17,7 @@ import { ViewSubscriptionAdminComponent } from './view-subscription-admin/view-s
 import { AddSubscriptionComponent } from './add-subscription/add-subscription.component';
 import { ViewAllSubscriptionsComponent } from './view-all-subscriptions/view-all-subscriptions.component';
 import {TextMaskModule} from "angular2-text-mask";
+import { ServerErrorComponent } from './server-error/server-error.component';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import {TextMaskModule} from "angular2-text-mask";
         TextMaskModule
     ],
   declarations: [SubscriptionComponent, InformationComponent, AuthorizationComponent, BillingaccountComponent,
-    AdminComponent, ManagementSubscriptionComponent, NavBarComponent, RegisterComponent, ManagementUsersComponent, ViewSubscriptionAdminComponent, AddSubscriptionComponent, ViewAllSubscriptionsComponent],
+    AdminComponent, ManagementSubscriptionComponent, NavBarComponent, RegisterComponent, ManagementUsersComponent, ViewSubscriptionAdminComponent, AddSubscriptionComponent, ViewAllSubscriptionsComponent, ServerErrorComponent],
   exports: [SubscriptionComponent, InformationComponent, AuthorizationComponent,
     BillingaccountComponent]
 })

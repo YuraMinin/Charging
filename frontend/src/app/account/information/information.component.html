@@ -1,24 +1,27 @@
 <app-nav-bar [nameNavBar]="nameComponent"></app-nav-bar>
+<app-server-error *ngIf="error" [nameError]="'Account not available'"></app-server-error>
 
-<!--User Information-->
-<span class="badge badge-warning mt-3 ml-3">User Information</span>
-<div class="shadow-lg p-4 mb-4 bg-white ml-3 mr-3">
-  <div class="row">
-    <div class="col">
-      <div class="last-name">
-        <label>Last Name: <b> {{User()?.lastName}} </b> </label>
-      </div>
-      <div class="first-name">
-        <label>First Name: <b> {{User()?.firstName}} </b> </label>
-      </div>
+<div *ngIf="!error">
+    <!--User Information-->
+    <span class="badge badge-warning mt-3 ml-3">User Information</span>
+    <div class="shadow-lg p-4 mb-4 bg-white ml-3 mr-3">
+        <div class="row">
+            <div class="col">
+                <div class="last-name">
+                    <label>Last Name: <b> {{User?.lastName}} </b> </label>
+                </div>
+                <div class="first-name">
+                    <label>First Name: <b> {{User?.firstName}} </b> </label>
+                </div>
+            </div>
+            <div class="col">
+                <label>Balance: <b> {{User?.billingAccounts[0].amount}} </b> </label>
+                <div>
+                    <button class="btn btn-success" type="button" routerLink="/billingaccount">E-wallet</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col">
-      <label>Balance: <b> {{User()?.billingAccounts[0].amount}} </b> </label>
-      <div>
-        <button class="btn btn-success" type="button" routerLink="/billingaccount">E-wallet</button>
-      </div>
-    </div>
-  </div>
+
+    <app-subscription></app-subscription>
 </div>
-
-<app-subscription></app-subscription>

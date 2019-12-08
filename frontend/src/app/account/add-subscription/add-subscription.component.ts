@@ -11,11 +11,12 @@ export class AddSubscriptionComponent implements OnInit {
 
   FormAddSub: FormGroup;
 
-  constructor(private date: UserService) {
+  constructor(private userService: UserService) {
     this.FormAddSub = new FormGroup({
 
         SubscriptionName: new FormControl('', Validators.required),
         SubscriptionCost: new FormControl('', Validators.required)
+
       }
     );
   }

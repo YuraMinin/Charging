@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../../model/user.service';
+import {Users} from "../../model/Users";
 
 
 @Component({
@@ -9,27 +10,27 @@ import {UserService} from '../../model/user.service';
 })
 export class ManagementUsersComponent implements OnInit {
 
-  constructor(private date: UserService) {
+  constructor(private data: UserService) {
   }
 
   @Input() idUser: number;
+  @Input() users: Users[];
 
   ngOnInit() {}
 
-  InvertUserStatus(): void {
-    console.log(this.idUser);
-    this.date.getUsers()[this.idUser - 1].blocked = !this.date.getUsers()[this.idUser - 1].blocked;
-    this.date.modifyUser(this.idUser, this.date.getUsers()[this.idUser - 1]);
+  invertUserStatus(): void {
+    this.users[this.idUser].blocked = !this.users[this.idUser].blocked;
+    this.data.modifyUser(this.idUser, this.users[this.idUser]);
   }
 
-  getClassMap(): string {
-    return (this.date.getUsers()[this.idUser - 1].blocked === true ? 'btn btn-outline-success btn-sm' :
+  getClassButton(): string {
+    return (this.users[this.idUser].blocked === true ? 'btn btn-outline-success btn-sm' :
       'btn btn-outline-danger btn-sm');
 
   }
 
   getNameManagementButton(): string {
-    if (this.date.getUsers()[this.idUser - 1].blocked === false) {
+    if (this.users[this.idUser].blocked === false) {
       return 'Blocked';
     } else {
       return 'Activate';

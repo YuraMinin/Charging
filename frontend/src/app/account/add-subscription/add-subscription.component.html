@@ -1,44 +1,50 @@
 <!-- Add subscriptions -->
 <div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-      <!-- Add subscriptions Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Add subscriptions</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
+            <!-- Add subscriptions Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add subscriptions</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
 
 
-      <!-- Add subscriptions body -->
-      <div class="modal-body">
+            <!-- Add subscriptions body -->
+            <div class="modal-body">
 
-        <form [formGroup]="FormAddSub">
-        <input type="text" name="sub-name" formControlName="SubscriptionName" placeholder="Name of subscription"
-               class="form-control form-control-sm my-3">
-          <div *ngIf="FormAddSub.controls['SubscriptionName'].invalid && FormAddSub.controls['SubscriptionName'].touched">
-            <p class="text-danger font-weight-bold ml-1 small"> Enter a Name Subscription</p>
-          </div>
+                <form [formGroup]="FormAddSub">
+                    <input type="text" name="sub-name" formControlName="SubscriptionName"
+                           placeholder="Name of subscription"
+                           class="form-control form-control-sm my-3">
+                    <div *ngIf="FormAddSub.controls['SubscriptionName'].invalid &&
+          FormAddSub.controls['SubscriptionName'].touched">
+                        <p class="text-danger font-weight-bold ml-1 small"> Enter a Name Subscription</p>
+                    </div>
 
-        <input type="number" name="cost" formControlName="SubscriptionCost" placeholder="Cost"
-               class="form-control form-control-sm my-3">
-          <div *ngIf="FormAddSub.controls['SubscriptionCost'].invalid && FormAddSub.controls['SubscriptionCost'].touched">
-            <p class="text-danger font-weight-bold ml-1 small"> Enter a Cost Subscription</p>
-          </div>
+                    <input type="number" name="cost" formControlName="SubscriptionCost" placeholder="Cost"
+                           class="form-control form-control-sm my-3">
+                    <div *ngIf="FormAddSub.controls['SubscriptionCost'].invalid &&
+           FormAddSub.controls['SubscriptionCost'].touched">
+                        <p class="text-danger font-weight-bold ml-1 small"> Enter a Cost Subscription</p>
+                    </div>
 
-        </form>
-      </div>
+                </form>
+            </div>
 
-      <!-- Add subscriptions footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" [disabled]="!FormAddSub.valid"
-                (click)="date.addSubscription(FormAddSub.controls['SubscriptionName'].value,
+            <!-- Add subscriptions footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" [disabled]="!FormAddSub.valid"
+                        (click)="userService.addSubscription(FormAddSub.controls['SubscriptionName'].value,
                  FormAddSub.controls['SubscriptionCost'].value)"
-                data-dismiss="modal" [routerLink]="['/products', 0]">Add</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+                        data-dismiss="modal" [routerLink]="['/products', 0]">Add
+                </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
-<button class="btn btn-success m-3 small" type="button" data-toggle="modal" data-target="#myModal">Add subscription</button>
+<button class="btn btn-success m-3 small" type="button" data-toggle="modal" data-target="#myModal">
+    Add subscription
+</button>

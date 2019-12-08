@@ -14,6 +14,7 @@ export class Users {
     public amountTransfer: number;
     public userProducts: Subscriptions[];
     public billingAccounts: BillingAccounts[];
+    public admin: boolean;
 
     constructor(firstName: string, lastName: string, login: string, password: string, numberCard: string, email: string) {
         this.firstName = firstName;

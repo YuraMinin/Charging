@@ -13,27 +13,33 @@ export class InformationComponent implements OnInit, OnDestroy {
     nameComponent = 'Account';
     private userStorage: Subscription = new Subscription();
     private user: Users;
+    private idInterval;
+    private error: boolean;
 
-    constructor(private data: UserService) {
+    constructor(private userService: UserService) {}
 
+    ngOnInit() {
+        this.idInterval = setInterval(() => {
+            this.userService.updateUser();
+            this.error = false;
+        }, 5000);
     }
 
-    User() : Users {
-        this.userStorage.add(this.data.getUserHttp(this.data.idUser).subscribe((user: Users) => {
+    get User() : Users {
+        this.userStorage.add(this.userService.getUser(this.userService.idUser).subscribe((user: Users) => {
             this.user = user;
-        }));
+        },
+            err => {
+                this.error = true;
+            }));
 
         return this.user;
     }
 
-    ngOnInit() {
-        setInterval(() => {
-            this.data.updateUser();
-        }, 5000);
-    }
 
     ngOnDestroy(): void {
         this.userStorage.unsubscribe();
+        clearInterval(this.idInterval);
     }
 }
 

@@ -4,7 +4,7 @@
     <p><input type="text" class="form-control form-control-sm ml-3" [(ngModel)] = "findSubscriptions" placeholder="Find subscription"></p>
 </div>
 <!--Subscription-->
-<div *ngIf="countProducts && products">
+<div *ngIf="countProducts && products && data.lookUser">
 
     <div class="shadow-lg p-4 bg-white mb-2 ml-3 mr-3">
         <table class="table table-hover">
@@ -13,7 +13,8 @@
                 <th>Number</th>
                 <th>Name of subscription</th>
                 <th>Status</th>
-                <th>Cost</th>
+                <th>Cost (1 min)</th>
+                <th>Time left</th>
                 <th>Management</th>
                 <th></th>
             </tr>
@@ -28,7 +29,8 @@
                             Subscription <b> {{getStatusSubscription(idx)}}</b></p>
                     </div>
                 </td>
-                <td>{{product.cost}} x {{product.period}} min</td>
+                <td>{{product.cost}} $</td>
+                <td>{{product.period}} min</td>
                 <td>
                     <app-management-subscription
                             [subscription]="product"></app-management-subscription>

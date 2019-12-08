@@ -1,68 +1,74 @@
 <app-nav-bar [nameNavBar]="nameComponent"></app-nav-bar>
+<app-server-error *ngIf="error" [nameError]="'List with users not available'"></app-server-error>
+
 
 <!--Table with user-->
-<span class="badge badge-warning mt-3 ml-3">Users Information</span>
-<div class="shadow-lg p-3 bg-white ml-3 mr-3">
-    <table class="table table-hover">
-        <thead class="thead-light">
-        <tr>
-            <th>Number</th>
-            <th>Last Name</th>
-            <th>Balance</th>
-            <th>Status</th>
-            <th>User Subscription</th>
-            <th>Management Status</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let user of Users(); let idx = index">
-            <td>{{idx + usersPerPage * (page - 1) + 1}}</td>
-            <td><b> {{user.lastName}}</b></td>
-            <td>{{user.billingAccounts[0].amount}}</td>
-            <td><p [class]="getClassMap(idx)"> {{userStatus(idx)}} </p></td>
-            <td>
-                <button type="button" class="btn btn-outline-dark btn-sm" [routerLink]="['/products', user.id]">
-                    User Subscription
-                </button>
-            </td>
-            <td>
-                <div class="d-flex justify-content-start">
-                    <app-management-users [idUser]="idx + 1"></app-management-users>
-                    <div class="custom-control custom-switch ml-1">
-                        <input type="checkbox" class="custom-control-input" id="switch + {{idx}}" name="example">
-                        <label class="custom-control-label" for="switch + {{idx}}">Admin</label>
+<div *ngIf="!error">
+    <span class="badge badge-warning mt-3 ml-3">Users Information</span>
+    <div class="shadow-lg p-3 bg-white ml-3 mr-3">
+        <table class="table table-hover">
+            <thead class="thead-light">
+            <tr>
+                <th>Number</th>
+                <th>Last Name</th>
+                <th>Balance</th>
+                <th>Status</th>
+                <th>User Subscription</th>
+                <th>Management Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of Users; let idx = index">
+                <td>{{idx + usersPerPage * (page - 1) + 1}}</td>
+                <td><b> {{user.lastName}}</b></td>
+                <td>{{user.billingAccounts[0].amount}}</td>
+                <td><p [class]="getClassMap(idx)"> {{userStatus(idx)}} </p></td>
+                <td>
+                    <button type="button" class="btn btn-outline-dark btn-sm" [routerLink]="['/products', user.id]">
+                        User Subscription
+                    </button>
+                </td>
+                <td>
+                    <div class="d-flex justify-content-start">
+                        <app-management-users [idUser]="idx" [users]="Users"></app-management-users>
+                        <div class="custom-control custom-switch ml-1">
+                            <input type="checkbox" class="custom-control-input" id="switch + {{idx}}"
+                                   [(ngModel)]="user.admin" name="example" (click)="managementUser(idx)">
+                            <label class="custom-control-label" for="switch + {{idx}}">Admin</label>
+                        </div>
                     </div>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-<div *ngIf="users && count">
-    <div class="d-flex my-2">
-        <div class="dropup dropright ml-3">
-            <button type="button" class="btn btn-outline-danger dropdown-toggle small" data-toggle="dropdown">
-                {{usersPerPage}}
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" (click)="changePageSize(3)">3</a>
-                <a class="dropdown-item" (click)="changePageSize(5)">5</a>
-                <a class="dropdown-item" (click)="changePageSize(7)">7</a>
+    <div *ngIf="users && count">
+        <div class="d-flex my-2">
+            <div class="dropup dropright ml-3">
+                <button type="button" class="btn btn-outline-success dropdown-toggle small" data-toggle="dropdown">
+                    {{usersPerPage}}
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" (click)="changePageSize(3)">3</a>
+                    <a class="dropdown-item" (click)="changePageSize(5)">5</a>
+                    <a class="dropdown-item" (click)="changePageSize(7)">7</a>
+                </div>
+            </div>
+
+            <div class="btn-group btn-group-sm ml-auto mr-3">
+                <button *ngFor="let page of pageNumbers" (click)="changePage(page)"
+                        class="btn btn-outline-success" [class.active]="page == selectedPage">
+                    {{page}}
+                </button>
             </div>
         </div>
-
-        <div class="btn-group btn-group-sm ml-auto mr-3">
-            <button *ngFor="let page of pageNumbers" (click)="changePage(page)"
-                    class="btn btn-outline-danger" [class.active]="page == selectedPage">
-                {{page}}
-            </button>
-        </div>
     </div>
-</div>
-<div>
-    <app-add-subscription></app-add-subscription>
-    <button type="button" class="btn btn-success" (click)="date.updateSubscriptions()"
-            [routerLink]="['/products', 0]">View Subscriptions
-    </button>
+    <div>
+        <app-add-subscription></app-add-subscription>
+        <button type="button" class="btn btn-success" (click)="userService.updateSubscriptions()"
+                [routerLink]="['/products', 0]">View Subscriptions
+        </button>
+    </div>
+
 </div>

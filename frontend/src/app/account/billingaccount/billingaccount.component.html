@@ -1,31 +1,36 @@
 <app-nav-bar [nameNavBar]="nameComponent"></app-nav-bar>
-<!-- Balance -->
-<div class="d-flex">
-  <div class="card m-3">
-    <div class="card-body">
-      <div class="balance">
-        <label>Balance on account: <b>{{User?.billingAccounts[0].amount}}</b></label>
-      </div>
-    </div>
-  </div>
-</div>
+<app-server-error *ngIf="error" [nameError]="'Account not available'"></app-server-error>
 
-<!-- Transfer of money -->
-<span class="badge badge-warning mt-3 ml-3">Transfer of money</span>
-<div class="d-flex">
-  <div class="shadow-lg p-4 mb-4 bg-white ml-3 mr-3">
-    <input [(ngModel)]="numberCard" [textMask]="{mask: mask}" type="text" name="number-card"
-           placeholder="Input number of card" class="form-control form-control">
-    <input [(ngModel)]="AmountTransfer" type="text" name="number-card"
-           placeholder="Amount" class="form-control form-controlmb-3 my-3">
-    <button class="btn btn-success" type="button" (click)="transferMoney()">Transfer</button>
-    <div *ngIf = "emptyField">
-      <p class="text-danger font-weight-bold small my-1">Enter the number card and amount</p>
+<div *ngIf="!error">
+    <!-- Balance -->
+    <div class="d-flex">
+        <div class="card m-3">
+            <div class="card-body">
+                <div class="balance">
+                    <label>Balance on account: <b>{{User?.billingAccounts[0].amount}}</b></label>
+                </div>
+            </div>
+        </div>
     </div>
-    <div *ngIf = "!correctData">
-      <p class="text-danger font-weight-bold small my-1">The number entered is not correct</p>
+
+    <!-- Transfer of money -->
+    <span class="badge badge-warning mt-3 ml-3">Transfer of money</span>
+    <div class="d-flex">
+        <div class="shadow-lg p-4 mb-4 bg-white ml-3 mr-3">
+            <input [(ngModel)]="numberCard" [textMask]="{mask: mask}" type="text" name="number-card"
+                   placeholder="Input number of card" class="form-control form-control">
+            <input [(ngModel)]="amountTransfer" type="text" name="number-card"
+                   placeholder="Amount" class="form-control form-controlmb-3 my-3">
+            <button class="btn btn-success" type="button" (click)="transferMoney()">Transfer</button>
+            <div *ngIf="emptyField">
+                <p class="text-danger font-weight-bold small my-1">Enter the number card and amount</p>
+            </div>
+            <div *ngIf="!correctData">
+                <p class="text-danger font-weight-bold small my-1">The number entered is not correct</p>
+            </div>
+        </div>
     </div>
-  </div>
+    <button class="btn btn-success btn-sm ml-3" type="button" (click)="usersService.updateUser()"
+            routerLink="/account">Return to account
+    </button>
 </div>
-<button class="btn btn-light ml-3" type="button" (click)="date.setUpdate()"
-        routerLink="/account">Return to account</button>
