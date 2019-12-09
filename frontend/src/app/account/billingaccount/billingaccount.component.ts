@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Users} from '../../model/Users';
 import {UserService} from '../../model/user.service';
@@ -17,13 +17,15 @@ export class BillingaccountComponent implements OnInit, OnDestroy {
     private amountTransfer: number;
     private correctData = true;
     private billingStorage: Subscription = new Subscription();
-    private user: Users;
+    //private user: Users;
     private mask = [/[1-9]/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ',
         /\d/, /\d/, /\d/, /\d/];
     private error: boolean;
 
 
     constructor(private usersService: UserService) {}
+
+    @Input() user: Users;
 
     ngOnInit() {
         this.usersService.updateUser();
@@ -47,13 +49,12 @@ export class BillingaccountComponent implements OnInit, OnDestroy {
 
         } else {
 
-            this.usersService.lookUser.numberCard = this.numberCard;
-            this.usersService.lookUser.amountTransfer = this.amountTransfer;
-            this.billingStorage.add(this.usersService.transferMoney(this.usersService.lookUser,
-                this.usersService.lookUser.id)
+            this.user.numberCard = this.numberCard;
+            this.user.amountTransfer = this.amountTransfer;
+            this.billingStorage.add(this.usersService.transferMoney(this.user,
+                this.user.id)
                 .subscribe((transfer: number) => {
 
-                        console.log(transfer);
                         if (transfer === 1) {
                             this.correctData = true;
                         } else {

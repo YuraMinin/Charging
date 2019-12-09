@@ -12,20 +12,22 @@ import {$} from 'protractor';
     styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-    public firstName: string;
-    public lastName: string;
-    public numberCard: string;
-    public newLogin: string;
-    public newEmail: string;
-    public newPassword: string;
-    public canRegister: boolean;
-    public failedLogin = false;
+    private firstName: string;
+    private lastName: string;
+    private numberCard: string;
+    private newLogin: string;
+    private newEmail: string;
+    private newPassword: string;
+    private canRegister: boolean;
+    private failedLogin = false;
     private mask = [/[1-9]/, /\d/, /\d/, /\d/,' ', /\d/, /\d/, /\d/, /\d/,' ', /\d/, /\d/, /\d/, /\d/,' ',
         /\d/, /\d/, /\d/, /\d/];
     myForm: FormGroup;
 
+    private error: boolean;
 
-    constructor(private router: Router, private date: UserService) {
+
+    constructor(private router: Router, private userService: UserService) {
         this.myForm = new FormGroup({
 
                 firstName: new FormControl('', Validators.required),
@@ -45,8 +47,7 @@ export class RegisterComponent implements OnInit {
         );
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     private passwordOK(pass1: any, pass2: any): boolean {
         if (pass1 === pass2) {
@@ -67,15 +68,20 @@ export class RegisterComponent implements OnInit {
         this.newEmail = String(email);
         const newUser: Users = new Users(this.firstName, this.lastName, this.newLogin, this.newPassword, this.numberCard,
             this.newEmail);
-        this.date.registerUser(newUser).subscribe((id: number) => {
+        this.userService.registerUser(newUser).subscribe((id: number) => {
             if (id === -1) {
                 this.failedLogin = true;
             } else if (id > 0) {
-                this.date.setUpdate();
+
+                this.userService.updateSubscriptions();
+                this.userService.updateUser();
                 this.router.navigateByUrl('/account');
                 document.getElementById("closeRegister").click();
             }
-        });
+        },
+            err => {
+                this.error = true;
+            });
     }
 
     getClassMap(): string {
@@ -84,6 +90,6 @@ export class RegisterComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.myForm);
+        // console.log(this.myForm);
     }
 }

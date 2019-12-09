@@ -6,66 +6,75 @@ import {Subscriptions} from '../../model/Subscriptions';
 
 
 @Component({
-  selector: 'app-view-subscription-admin',
-  templateUrl: './view-subscription-admin.component.html',
-  styleUrls: ['./view-subscription-admin.component.css']
+    selector: 'app-view-subscription-admin',
+    templateUrl: './view-subscription-admin.component.html',
+    styleUrls: ['./view-subscription-admin.component.css']
 })
 export class ViewSubscriptionAdminComponent implements OnInit, OnDestroy {
 
-  id: number;
-  private subscriptionStorage: Subscription = new Subscription();
-  private subscriptionsUser: Subscriptions[];
-  private productPerPage = 10;
-  private selectedPage = 1;
-  private page = 1;
-  private count: number;
+    id: number;
+    private subscriptionStorage: Subscription = new Subscription();
+    private subscriptionsUser: Subscriptions[];
+    private productPerPage = 10;
+    private selectedPage = 1;
+    private page = 1;
+    private count: number;
 
-  constructor(private date: UserService,
-              private activatedRoute: ActivatedRoute) {
+    private error: boolean;
 
-  }
+    constructor(private userService: UserService,
+                private activatedRoute: ActivatedRoute) {
 
-  ngOnInit() {
-    this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-    this.subscriptionStorage.add(this.date.countSubscription(0).subscribe((count: number) => {
-      this.count = count;
-    }));
-  }
+    }
 
-  get products() {
-    this.subscriptionStorage.add(this.date.getUserSubscription(this.id, (this.page - 1) * this.productPerPage,
-        this.productPerPage, "").subscribe((subscriptions: Subscriptions[]) => {
-      this.subscriptionsUser = subscriptions;
-    }));
-    return this.subscriptionsUser;
-  }
+    ngOnInit() {
+        this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+        this.subscriptionStorage.add(this.userService.countSubscription(0).subscribe((count: number) => {
+                this.count = count;
+            },
+            err => {
+                this.error = true;
+            }));
+    }
 
-  // Pagination
+    get products() {
+        this.subscriptionStorage.add(this.userService.getUserSubscription(this.id,
+            (this.page - 1) * this.productPerPage,
+            this.productPerPage, "").subscribe((subscriptions: Subscriptions[]) => {
+                this.subscriptionsUser = subscriptions;
+            },
+            err => {
+                this.error = true;
+            }));
+        return this.subscriptionsUser;
+    }
 
-  get countProducts(): number {
-    return this.count;
-  }
+    // Pagination
 
-  // Changing page number
-  changePage(newPage: number) {
-    this.page = newPage;
-    this.selectedPage = this.page;
-    this.subscriptionsUser = null;
-    this.date.setUpdate();
-  }
+    get countProducts(): number {
+        return this.count;
+    }
 
-  get pageNumbers(): number[] {
-    return Array(Math.ceil(this.countProducts / this.productPerPage))
-        .fill(0).map((x, i) => i + 1);
-  }
+    // Changing page number
+    changePage(newPage: number) {
+        this.page = newPage;
+        this.selectedPage = this.page;
+        this.subscriptionsUser = null;
+        this.userService.updateSubscriptions();
+    }
 
-  changePageSize(newSize: number) {
-    this.productPerPage = Number(newSize);
-    this.date.updateSubscriptions();
-  }
+    get pageNumbers(): number[] {
+        return Array(Math.ceil(this.countProducts / this.productPerPage))
+            .fill(0).map((x, i) => i + 1);
+    }
+
+    changePageSize(newSize: number) {
+        this.productPerPage = Number(newSize);
+        this.userService.updateSubscriptions();
+    }
 
 
-  ngOnDestroy(): void {
-    this.subscriptionStorage.unsubscribe();
-  }
+    ngOnDestroy(): void {
+        this.subscriptionStorage.unsubscribe();
+    }
 }

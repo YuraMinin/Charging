@@ -10,7 +10,7 @@ import {Users} from "../../model/Users";
 })
 export class ManagementUsersComponent implements OnInit {
 
-  constructor(private data: UserService) {
+  constructor(private userService: UserService) {
   }
 
   @Input() idUser: number;
@@ -20,7 +20,7 @@ export class ManagementUsersComponent implements OnInit {
 
   invertUserStatus(): void {
     this.users[this.idUser].blocked = !this.users[this.idUser].blocked;
-    this.data.modifyUser(this.idUser, this.users[this.idUser]);
+    this.userService.modifyUser(this.idUser, this.users[this.idUser]);
   }
 
   getClassButton(): string {

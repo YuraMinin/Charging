@@ -16,7 +16,8 @@ export class InformationComponent implements OnInit, OnDestroy {
     private idInterval;
     private error: boolean;
 
-    constructor(private userService: UserService) {}
+    constructor(private userService: UserService) {
+    }
 
     ngOnInit() {
         this.idInterval = setInterval(() => {
@@ -25,10 +26,10 @@ export class InformationComponent implements OnInit, OnDestroy {
         }, 5000);
     }
 
-    get User() : Users {
+    get User(): Users {
         this.userStorage.add(this.userService.getUser(this.userService.idUser).subscribe((user: Users) => {
-            this.user = user;
-        },
+                this.user = user;
+            },
             err => {
                 this.error = true;
             }));

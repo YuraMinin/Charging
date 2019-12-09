@@ -21,24 +21,22 @@ export class ViewAllSubscriptionsComponent implements OnInit, OnDestroy {
     private error: boolean = false;
 
 
-    constructor(private date: UserService) {
-    }
+    constructor(private userService: UserService) {}
 
     ngOnInit() {
-        this.subscriptionStorage.add(this.date.countSubscription(0).subscribe((count: number) => {
+        this.subscriptionStorage.add(this.userService.countSubscription(0).subscribe((count: number) => {
                 this.count = count;
             }, err => {
                 this.error = true;
             }
         ));
 
-
-
     }
 
     get products(): Subscriptions[] {
 
-        this.subscriptionStorage.add(this.date.getUserSubscription(0, (this.page - 1) * this.productPerPage,
+        this.subscriptionStorage.add(this.userService.getUserSubscription(0,
+            (this.page - 1) * this.productPerPage,
             this.productPerPage, "").subscribe((subscriptions: Subscriptions[]) => {
                 this.subscriptions = subscriptions;
             },
@@ -58,7 +56,7 @@ export class ViewAllSubscriptionsComponent implements OnInit, OnDestroy {
         this.page = newPage;
         this.selectedPage = this.page;
         this.subscriptions = null;
-        this.date.setUpdate();
+        this.userService.updateSubscriptions();
     }
 
     get pageNumbers(): number[] {

@@ -1,10 +1,12 @@
 <span class="badge badge-info ml-3">Subscriptions</span>
+<app-server-error *ngIf="error" [nameError]="'Subscriptions not available'"></app-server-error>
 
 <div class="d-flex">
-    <p><input type="text" class="form-control form-control-sm ml-3" [(ngModel)] = "findSubscriptions" placeholder="Find subscription"></p>
+    <p><input type="text" class="form-control form-control-sm ml-3" [(ngModel)] = "findSubscriptions"
+              placeholder="Find subscription"></p>
 </div>
 <!--Subscription-->
-<div *ngIf="countProducts && products && data.lookUser">
+<div *ngIf="countProducts && products && !error && user">
 
     <div class="shadow-lg p-4 bg-white mb-2 ml-3 mr-3">
         <table class="table table-hover">
@@ -33,7 +35,7 @@
                 <td>{{product.period}} min</td>
                 <td>
                     <app-management-subscription
-                            [subscription]="product"></app-management-subscription>
+                            [subscription]="product" [user]="user"></app-management-subscription>
                 </td>
             </tr>
             </tbody>

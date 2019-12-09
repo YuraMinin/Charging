@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UserService} from '../../model/user.service';
 import {Subscriptions} from '../../model/Subscriptions';
+import {Users} from "../../model/Users";
 
 @Component({
     selector: 'app-management-subscription',
@@ -9,28 +10,22 @@ import {Subscriptions} from '../../model/Subscriptions';
 })
 export class ManagementSubscriptionComponent implements OnInit {
 
-    constructor(private data: UserService) {
-    }
+    constructor(private userService: UserService) {}
 
-    // @Input() id: number;
     @Input() subscription: Subscriptions;
+    @Input() user: Users;
     private periodOn = 1;
 
-    ngOnInit() {
-        // console.log(this.id);
-    }
+    ngOnInit() {}
 
     // Change products status
     changeStatus(): void {
-        let subscription: Subscriptions;
-        subscription = this.subscription;
-        if (subscription.status === true) {
+        if (this.subscription.status === true) {
             this.periodOn = 1;
         }
-        subscription.period = this.periodOn;
-        subscription.status = !subscription.status;
-        // this.data.userSubscription[this.id] = subscription;
-        this.data.modifyUserSubscription(subscription);
+        this.subscription.period = this.periodOn;
+        this.subscription.status = !this.subscription.status;
+        this.userService.modifyUserSubscription(this.subscription);
     }
 
     setPeriodOn(period: number) {
