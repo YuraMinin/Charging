@@ -58,7 +58,7 @@ export class UserService {
                         this.user.next(user);
                     },
                     err => {
-                        this.users.error(err);
+                        this.user.error(err);
                     });
         }
         this.updateUserID = false;
