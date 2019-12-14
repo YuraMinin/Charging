@@ -1,7 +1,6 @@
 package com.netcracker.edu.fapi.models;
 
 public class Subscription {
-
     public Integer id;
     public String name;
     public int cost;

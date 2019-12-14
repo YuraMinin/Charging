@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SubscriptionService {
     List<Subscription> findAll(Integer id, Integer limit, Integer offset, String name);
-    List<Subscription> findPage(Integer id, Integer limit, Integer offset, String name);
+    List<Subscription> findByPage(Integer id, Integer limit, Integer offset, String name);
     Integer count(Integer id);
     void save(Subscription subscription, Integer idUser);
     void delete(Integer id, Subscription subscription);

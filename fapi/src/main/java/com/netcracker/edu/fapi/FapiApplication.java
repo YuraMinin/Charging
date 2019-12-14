@@ -9,5 +9,4 @@ public class FapiApplication {
     public static void main(String[] args) {
         SpringApplication.run(FapiApplication.class, args);
     }
-
 }

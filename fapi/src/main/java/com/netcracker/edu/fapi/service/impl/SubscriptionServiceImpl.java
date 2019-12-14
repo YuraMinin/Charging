@@ -21,7 +21,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     public List<Subscription> findAll(Integer id, Integer limit, Integer offset, String name) {
         RestTemplate restTemplate = new RestTemplate();
         Subscription[] subscriptions = restTemplate.getForObject("http://localhost:8081/api/users/subscriptions?offset=" +
-                offset + "&limit="+ limit + "&name=" + name,
+                        offset + "&limit="+ limit + "&name=" + name,
                 Subscription[].class);
 
         if (subscriptions == null) {
@@ -49,7 +49,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     }
 
     @Override
-    public List<Subscription> findPage(Integer id, Integer limit, Integer offset, String name) {
+    public List<Subscription> findByPage(Integer id, Integer limit, Integer offset, String name) {
 
         List<Subscription> subscription = findAll(id, limit, offset, name);
 
