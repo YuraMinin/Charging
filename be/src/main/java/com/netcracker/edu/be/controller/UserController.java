@@ -27,6 +27,12 @@ public class UserController {
         return userService.findById(id);
     }
 
+    @GetMapping(value = "/auth/{login}")
+    public Users getUserByLogin(@PathVariable(name = "login") String login) {
+
+        return userService.findByLogin(login);
+    }
+
     @RequestMapping(value = "", method = RequestMethod.POST)
     public Users createUser(@RequestBody Users user) {
         System.out.println(user.getFirstName() + user.getLastName() + user.getPassword() + user.getLogin() + user.getEmail());

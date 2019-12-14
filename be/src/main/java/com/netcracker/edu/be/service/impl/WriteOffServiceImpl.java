@@ -36,7 +36,7 @@ public class WriteOffServiceImpl implements WriteOffService{
             if (item.getBillingAccounts().get(0).getAmount() <= 0 && !item.getBlocked()) {
                 item.setBlocked(true);
                 userRepository.save(item);
-                System.out.println(item.getLastName() + " amount =  " + item.getBillingAccounts().get(0).getAmount());
+                // System.out.println(item.getLastName() + " amount =  " + item.getBillingAccounts().get(0).getAmount());
             } else if (item.getBillingAccounts().get(0).getAmount() > 0 && item.getBlocked()) {
                 item.setBlocked(false);
                 userRepository.save(item);
@@ -48,9 +48,6 @@ public class WriteOffServiceImpl implements WriteOffService{
     public void writeOffMoney() {
         for (UsersSubscriptions item: userSubscriptionService.findAll()) {
 
-            /*LocalTime timeOn = item.getTimeOn();
-            LocalTime timeOff = LocalTime.of(timeOn.getHour(), timeOn.getMinute(), timeOn.getSecond());
-            timeOff = timeOff.plusMinutes(Long.parseLong(item.getPeriod()));*/
 
             if (item.getTimeOff().compareTo(LocalTime.now()) == -1) {
                 userSubscriptionService.deleteById(item.getIdSubscription());

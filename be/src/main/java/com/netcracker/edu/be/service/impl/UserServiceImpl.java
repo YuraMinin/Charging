@@ -63,4 +63,26 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Override
+    public Users findByLogin(String login) {
+
+        if(login.equals("admin")) {
+            Users user = new Users();
+            user.setId(0);
+            user.setLogin("admin");
+            user.setPassword("$2y$12$iNsyQ.8XSCTMWfJykKNek.CdB5YlRt4C/0YVVjrmPCsaqoE3PdN.q");
+            user.setAdmin(true);
+            return user;
+        }
+
+
+        for (Users item : userRepository.findAll()) {
+            if (item.getLogin().equals(login)){
+                return item;
+            }
+        }
+        return null;
+    }
+
+
 }

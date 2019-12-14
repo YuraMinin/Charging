@@ -43,6 +43,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         if (name.equals("")){
             return (List<Subscriptions>) subscriptionRepository.findAll();
         }
+
         for (Subscriptions item : findAll()) {
             if (item.getName().contains(name)) {
                 subscriptions.add(item);
