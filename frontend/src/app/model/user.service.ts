@@ -118,7 +118,7 @@ export class UserService {
     public authorizationUser(user: Users): Observable<number> {
 
         this.subsID = new ReplaySubject(1);
-        this.httpClient.post<number>('http://localhost:8080/api/users/authorization', user).subscribe(
+        this.httpClient.get<number>('http://localhost:8080/api/users/login/' +  user.login).subscribe(
             (id: number) => {
                 this.idUser = id;
                 this.subsID.next(id);
@@ -134,7 +134,7 @@ export class UserService {
 
     public registerUser(user: Users): Observable<number> {
         this.subsID = new ReplaySubject(1);
-        this.httpClient.post<number>('http://localhost:8080/api/users', user).subscribe(
+        this.httpClient.post<number>('http://localhost:8080/api/users/up', user).subscribe(
             (id: number) => {
                 this.idUser = id;
                 this.subsID.next(id);

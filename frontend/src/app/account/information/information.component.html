@@ -1,6 +1,12 @@
 <app-nav-bar [nameNavBar]="nameComponent"></app-nav-bar>
 <app-server-error *ngIf="error" [nameError]="'Account not available'"></app-server-error>
 
+<div *ngIf="error" class = "d-flex justify-content-center my-5" >
+    <div class="spinner-grow text-success my-5"></div>
+    <div class="spinner-grow text-info my-5"></div>
+    <div class="spinner-grow text-warning my-5"></div>
+</div>
+
 <div *ngIf="!error">
     <!--User Information-->
     <span class="badge badge-warning mt-3 ml-3">User Information</span>

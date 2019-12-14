@@ -24,6 +24,7 @@ export class ViewAllSubscriptionsComponent implements OnInit, OnDestroy {
     constructor(private userService: UserService) {}
 
     ngOnInit() {
+        this.userService.updateSubscriptions();
         this.subscriptionStorage.add(this.userService.countSubscription(0).subscribe((count: number) => {
                 this.count = count;
             }, err => {

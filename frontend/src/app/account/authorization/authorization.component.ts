@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserService} from '../../model/user.service';
 import {Users} from '../../model/Users';
+import {AuthService} from "../auth.service";
+
+
 
 @Component({
     selector: 'app-authorization',
@@ -15,11 +18,30 @@ export class AuthorizationComponent implements OnInit {
     private emptyField;
     private failedData;
     private error: boolean;
+    private buttonReturn = false;
 
-    constructor(private router: Router, private userService: UserService) {
+    constructor(private router: Router, private userService: UserService, private authService: AuthService) {
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+
+        let user = sessionStorage.getItem('username');
+        let id = sessionStorage.getItem('id');
+        if (id !== null) {
+            this.buttonReturn = true;
+            this.userService.idUser = Number(id);
+            this.userService.updateSubscriptions();
+            this.userService.updateUser();
+
+            if (Number(id)  === 0) {
+                this.router.navigateByUrl('/admin');
+
+            }  else if (Number(id) > 0) {
+
+                this.router.navigateByUrl('/account');
+            }
+        }
+    }
 
     // Authorization User or Admin
     authorization(): void {
@@ -32,32 +54,58 @@ export class AuthorizationComponent implements OnInit {
             const user: Users = new Users(null, null, this.login, this.passwd,
                 null, null);
 
-            this.userService.authorizationUser(user).subscribe((id: number) => {
-                    if (id === 0) {
+            this.authService.attemptAuth(this.login, this.passwd).subscribe(
+                data => {
+                    //this.token.saveToken(data.token);
+                    //this.router.navigate(['user']);
+                    sessionStorage.setItem('username', this.login);
+                    let tokenStr= 'Bearer '+ data.token;
+                    sessionStorage.setItem('token', tokenStr);
 
-                        this.router.navigateByUrl('/admin');
-                        document.getElementById("close").click();
 
-                    } else if (id === -1) {
 
-                        this.failedData = true;
+                    this.userService.authorizationUser(user).subscribe((id: number) => {
+                        console.log("id:", id);
 
-                    } else if (id > 0) {
+                        if (id === 0) {
 
-                        this.userService.updateUser();
-                        this.userService.updateSubscriptions();
-                        this.router.navigateByUrl('/account');
-                        document.getElementById("close").click();
+                            this.userService.updateUser();
+                            this.router.navigateByUrl('/admin');
+                            document.getElementById("close").click();
+                            sessionStorage.setItem('id', id.toString());
 
-                    } else {
+                        } else if (id === -1) {
 
-                        this.emptyField = true;
-                    }
+                            this.failedData = true;
+
+                        } else if (id > 0) {
+
+
+                            this.userService.updateUser();
+                            this.userService.updateSubscriptions();
+                            this.router.navigateByUrl('/account');
+                            document.getElementById("close").click();
+                            sessionStorage.setItem('id', id.toString());
+
+                        } else {
+
+                            this.emptyField = true;
+                        }
+
+
+                    });
+
                 },
-
                 err => {
-                    this.error = true;
-                });
+                    console.log(err);
+                    //this.error = true;
+                    this.failedData = true;
+
+                }
+
+            );
+
+
         }
     }
 

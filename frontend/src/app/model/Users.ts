@@ -12,7 +12,7 @@ export class Users {
     public password;
     public numberCard = '';
     public amountTransfer: number;
-    public userProducts: Subscriptions[];
+    public subscriptions: Subscriptions[];
     public billingAccounts: BillingAccounts[];
     public admin: boolean;
 

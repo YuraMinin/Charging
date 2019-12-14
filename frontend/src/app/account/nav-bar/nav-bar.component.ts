@@ -13,4 +13,9 @@ export class NavBarComponent implements OnInit {
   ngOnInit() {
   }
 
+  logOut() {
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("id");
+  }
 }

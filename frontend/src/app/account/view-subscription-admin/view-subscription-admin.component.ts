@@ -29,6 +29,7 @@ export class ViewSubscriptionAdminComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+        this.userService.updateSubscriptions();
         this.subscriptionStorage.add(this.userService.countSubscription(0).subscribe((count: number) => {
                 this.count = count;
             },

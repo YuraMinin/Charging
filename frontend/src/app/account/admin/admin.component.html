@@ -11,6 +11,7 @@
             <tr>
                 <th>Number</th>
                 <th>Last Name</th>
+                <th>Count ON Subscriptions</th>
                 <th>Balance</th>
                 <th>Status</th>
                 <th>User Subscription</th>
@@ -21,6 +22,7 @@
             <tr *ngFor="let user of Users; let idx = index">
                 <td>{{idx + usersPerPage * (page - 1) + 1}}</td>
                 <td><b> {{user.lastName}}</b></td>
+                <td>{{user?.subscriptions.length}}</td>
                 <td>{{user.billingAccounts[0].amount}}</td>
                 <td><p [class]="getClassMap(idx)"> {{userStatus(idx)}} </p></td>
                 <td>

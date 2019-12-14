@@ -40,6 +40,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
         if (this.find !== this.findSubscriptions) {
             this.userService.updateSubscriptions();
             this.find = this.findSubscriptions;
+            this.page = 1;
         }
 
         this.subscriptionStorage.add(this.userService.getUserSubscription(this.userService.idUser,

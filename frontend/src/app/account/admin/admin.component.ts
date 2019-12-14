@@ -28,7 +28,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         this.idInterval = setInterval(() => {
             this.userService.updateUser();
             this.error = false;
-        }, 10000);
+        }, 5000);
     }
 
     get Users(): Users[] {

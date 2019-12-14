@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {UserService} from '../../model/user.service';
 import {Users} from '../../model/Users';
 import {$} from 'protractor';
+import {AuthService} from "../auth.service";
 
 
 @Component({
@@ -27,7 +28,7 @@ export class RegisterComponent implements OnInit {
     private error: boolean;
 
 
-    constructor(private router: Router, private userService: UserService) {
+    constructor(private router: Router, private userService: UserService, private authService: AuthService) {
         this.myForm = new FormGroup({
 
                 firstName: new FormControl('', Validators.required),
@@ -68,15 +69,36 @@ export class RegisterComponent implements OnInit {
         this.newEmail = String(email);
         const newUser: Users = new Users(this.firstName, this.lastName, this.newLogin, this.newPassword, this.numberCard,
             this.newEmail);
+
         this.userService.registerUser(newUser).subscribe((id: number) => {
             if (id === -1) {
                 this.failedLogin = true;
             } else if (id > 0) {
 
+
+                this.authService.attemptAuth(this.newLogin, this.newPassword).subscribe(
+                    data => {
+                        //this.token.saveToken(data.token);
+                        //this.router.navigate(['user']);
+                        sessionStorage.setItem('username', this.newLogin);
+                        let tokenStr= 'Bearer '+ data.token;
+                        sessionStorage.setItem('token', tokenStr);
+
+
+                    },
+                    err => {
+                        console.log(err);
+                        this.failedLogin = true;
+
+                    }
+
+                );
+
                 this.userService.updateSubscriptions();
                 this.userService.updateUser();
                 this.router.navigateByUrl('/account');
                 document.getElementById("closeRegister").click();
+                sessionStorage.setItem('id', id.toString());
             }
         },
             err => {

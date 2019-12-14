@@ -11,10 +11,11 @@ import {RouterModule} from '@angular/router';
 import {ViewSubscriptionAdminComponent} from './account/view-subscription-admin/view-subscription-admin.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {ChargingFirstGuard} from './chargingFirst.guard';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {HttpService} from './HttpService';
 import {ViewAllSubscriptionsComponent} from "./account/view-all-subscriptions/view-all-subscriptions.component";
 import {TextMaskModule} from "angular2-text-mask";
+import {Interceptor} from "./app.interceptor";
 
 @NgModule({
   imports: [
@@ -41,7 +42,10 @@ import {TextMaskModule} from "angular2-text-mask";
     HttpClientModule
   ],
   declarations: [AppComponent],
-  providers: [ChargingFirstGuard, HttpService],
+  providers: [ChargingFirstGuard, HttpService, {
+    provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true
+
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

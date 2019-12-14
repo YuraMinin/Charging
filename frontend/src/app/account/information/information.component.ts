@@ -31,10 +31,17 @@ export class InformationComponent implements OnInit, OnDestroy {
                 this.user = user;
             },
             err => {
+                console.log(err);
                 this.error = true;
             }));
 
         return this.user;
+    }
+
+    isUserLoggedIn() {
+        let user = sessionStorage.getItem('username');
+        //console.log(!(user === null))
+        return (user === null)
     }
 
 
