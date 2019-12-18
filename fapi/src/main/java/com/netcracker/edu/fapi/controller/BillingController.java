@@ -35,7 +35,7 @@ public class BillingController {
     @PostMapping("/billing/{id}")
     public Integer transferMoney(@PathVariable Integer id,
                                  @RequestBody User user) {
-        if (billingService.transferMoney(id, user, user.amountTransfer)) {
+        if (billingService.transferMoney(id, user.amountTransfer)) {
             return 1;
         } else return -1;
 

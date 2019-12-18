@@ -8,10 +8,10 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class BillingServiceImpl implements BillingService {
 
-    public boolean transferMoney(Integer id, User user, Integer amount){
+    public boolean transferMoney(Integer id, Integer amount){
         RestTemplate restTemplate = new RestTemplate();
         Boolean transfer = restTemplate.postForEntity("http://localhost:8081/api/users/" + id
-                + "/billing/transfer?amount=" + amount, user, Boolean.class).getBody();
+                + "/billing/transfer", amount, Boolean.class).getBody();
 
         return transfer;
     }
