@@ -26,11 +26,10 @@ public class BillingController {
         billingAccountService.save(billingAccount, id);
     }
 
-    @PostMapping(value = "{id}/billing/transfer", params = {"amount"})
+    @PostMapping(value = "{id}/billing/transfer")
     public boolean transferMoney(@PathVariable Integer id,
-                                 @RequestParam("amount") int amount,
-                                 @RequestBody BillingAccounts billingAccount) {
-        return billingAccountService.transferMoney(id, billingAccount, amount);
+                                 @RequestBody Integer amount) {
+        return billingAccountService.transferMoney(id, amount);
     }
 
     @PutMapping("/{id}")

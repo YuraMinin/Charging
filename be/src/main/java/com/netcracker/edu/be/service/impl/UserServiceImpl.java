@@ -22,8 +22,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<Users> findById(Integer id) {
-        return userRepository.findById(id);
+    public Users findById(Integer id) {
+
+        Users user = userRepository.findById(id).get();
+        user.getBillingAccounts().get(0).setNumberCard("**** **** **** " +
+                user.getBillingAccounts().get(0).getNumberCard().substring(15));
+        return user;
     }
 
     @Override
@@ -78,6 +82,8 @@ public class UserServiceImpl implements UserService {
 
         for (Users item : userRepository.findAll()) {
             if (item.getLogin().equals(login)){
+                item.getBillingAccounts().get(0).setNumberCard("**** **** **** " +
+                        item.getBillingAccounts().get(0).getNumberCard().substring(15));
                 return item;
             }
         }

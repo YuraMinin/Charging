@@ -10,6 +10,6 @@ public interface BillingAccountService {
     BillingAccounts findByUserId(Integer id);
     BillingAccounts save(BillingAccounts billingAccount, Integer idUser);
     void update(BillingAccounts billingAccounts);
-    boolean transferMoney(Integer id, BillingAccounts billingAccounts, Integer amount);
+    boolean transferMoney(Integer id, Integer amount);
     void deleteById(Integer id);
 }

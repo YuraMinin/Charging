@@ -28,34 +28,29 @@ public class BillingAccountServiceImpl implements BillingAccountService {
     @Override
     public BillingAccounts findByUserId(Integer id) {
 
-        return userService.findById(id).get().getBillingAccounts().get(0);
+        return userService.findById(id).getBillingAccounts().get(0);
         //return billingAccountRepository.findByUserId(id);
     }
 
     @Override
     public BillingAccounts save(BillingAccounts billingAccount, Integer idUser) {
-        if (userService.findById(idUser).isPresent()) {
-            BillingAccounts newBillingAccount = new BillingAccounts(billingAccount.getNumberCard(),
-                    userService.findById(idUser).get());
-            return billingAccountRepository.save(newBillingAccount);
-        } else {
-            return null;
-        }
+
+        BillingAccounts newBillingAccount = new BillingAccounts(billingAccount.getNumberCard(),
+                userService.findById(idUser));
+        return billingAccountRepository.save(newBillingAccount);
+
     }
 
     @Override
-    public boolean transferMoney(Integer id, BillingAccounts billingAccounts, Integer amount) {
-        if (userService.findById(id).isPresent()) {
-            Users user = userService.findById(id).get();
-            if (user.getBillingAccounts().get(0).getNumberCard().equals(billingAccounts.getNumberCard())) {
-                user.getBillingAccounts().get(0).setAmount(amount);
-                billingAccountRepository.save(user.getBillingAccounts().get(0));
-                return true;
-            }
-            return false;
-        }
+    public boolean transferMoney(Integer id, Integer amount) {
 
-        return false;
+
+        Users user = userService.findById(id);
+        user.getBillingAccounts().get(0).setAmount(amount);
+        billingAccountRepository.save(user.getBillingAccounts().get(0));
+        return true;
+
+
     }
 
     @Override

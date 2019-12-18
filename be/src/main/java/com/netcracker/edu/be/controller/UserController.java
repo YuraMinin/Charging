@@ -23,7 +23,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public Optional<Users> getUser(@PathVariable(name = "id") Integer id) {
+    public Users getUser(@PathVariable(name = "id") Integer id) {
         return userService.findById(id);
     }
 

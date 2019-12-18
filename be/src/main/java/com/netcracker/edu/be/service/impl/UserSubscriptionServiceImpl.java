@@ -42,8 +42,8 @@ public class UserSubscriptionServiceImpl implements UserSubscriptionService {
         LocalTime timeOff = LocalTime.of(timeOn.getHour(), timeOn.getMinute(), timeOn.getSecond());
         timeOff = timeOff.plusMinutes(Long.parseLong(period));
 
-        if (userService.findById(idUser).isPresent() && subscriptionService.findById(idSubscription).isPresent()) {
-            UsersSubscriptions newUsersSubscription = new UsersSubscriptions(period, userService.findById(idUser).get()
+        if (subscriptionService.findById(idSubscription).isPresent()) {
+            UsersSubscriptions newUsersSubscription = new UsersSubscriptions(period, userService.findById(idUser)
                     ,subscriptionService.findById(idSubscription).get(), timeOn, timeOff);
 
 
