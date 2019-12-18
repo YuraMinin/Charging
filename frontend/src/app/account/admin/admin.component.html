@@ -22,17 +22,21 @@
             <tr *ngFor="let user of Users; let idx = index">
                 <td>{{idx + usersPerPage * (page - 1) + 1}}</td>
                 <td><b> {{user.lastName}}</b></td>
-                <td>{{user?.subscriptions.length}}</td>
-                <td>{{user.billingAccounts[0].amount}}</td>
+                <td><div *ngIf="!user.admin">{{user?.subscriptions.length}}</div></td>
+                <td>
+                    <div *ngIf="!user.admin">{{user.billingAccounts[0].amount}} $</div>
+                </td>
                 <td><p [class]="getClassMap(idx)"> {{userStatus(idx)}} </p></td>
                 <td>
-                    <button type="button" class="btn btn-outline-dark btn-sm" [routerLink]="['/products', user.id]">
-                        User Subscription
-                    </button>
+                    <div *ngIf="!user.admin">
+                        <button type="button" class="btn btn-outline-dark btn-sm" [routerLink]="['/products', user.id]">
+                            User Subscription
+                        </button>
+                    </div>
                 </td>
                 <td>
                     <div class="d-flex justify-content-start">
-                        <app-management-users [idUser]="idx" [users]="Users"></app-management-users>
+                        <app-management-users *ngIf="!user.admin" [idUser]="idx" [users]="Users"></app-management-users>
                         <div class="custom-control custom-switch ml-1">
                             <input type="checkbox" class="custom-control-input" id="switch + {{idx}}"
                                    [(ngModel)]="user.admin" name="example" (click)="managementUser(idx)">

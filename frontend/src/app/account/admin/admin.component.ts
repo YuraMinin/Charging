@@ -52,16 +52,24 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
 
     userStatus(id: number): string {
-        if (this.users[id].blocked === false) {
+        if (!this.users[id].blocked && !this.users[id].admin) {
             return 'Active';
-        } else {
+        } else if (this.users[id].blocked && !this.users[id].admin){
             return 'Blocked';
+        } else {
+            return "Admin"
         }
     }
 
     getClassMap(id: number): string {
-        return (this.userStatus(id) === 'Active' ? 'text-success' :
-            'text-danger');
+
+        if (this.userStatus(id) === 'Active' && !this.users[id].admin) {
+            return 'text-success font-weight-bold';
+        } else if (this.userStatus(id) !== 'Active' && !this.users[id].admin){
+            return 'text-danger font-weight-bold';
+        } else {
+            return "text-primary font-weight-bold"
+        }
 
     }
 

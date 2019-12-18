@@ -85,6 +85,10 @@ export class RegisterComponent implements OnInit {
                         sessionStorage.setItem('token', tokenStr);
 
 
+                        this.userService.updateSubscriptions();
+                        this.userService.updateUser();
+                        this.router.navigateByUrl('/account');
+
                     },
                     err => {
                         console.log(err);
@@ -94,9 +98,7 @@ export class RegisterComponent implements OnInit {
 
                 );
 
-                this.userService.updateSubscriptions();
-                this.userService.updateUser();
-                this.router.navigateByUrl('/account');
+
                 document.getElementById("closeRegister").click();
                 sessionStorage.setItem('id', id.toString());
             }

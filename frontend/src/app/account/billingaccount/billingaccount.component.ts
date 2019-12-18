@@ -13,13 +13,10 @@ export class BillingaccountComponent implements OnInit, OnDestroy {
     nameComponent = 'Billing Account';
 
     private emptyField: boolean;
-    private numberCard: string;
     private amountTransfer: number;
     private correctData = true;
     private billingStorage: Subscription = new Subscription();
     //private user: Users;
-    private mask = [/[1-9]/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ',
-        /\d/, /\d/, /\d/, /\d/];
     private error: boolean;
 
 
@@ -43,13 +40,13 @@ export class BillingaccountComponent implements OnInit, OnDestroy {
     }
 
     transferMoney(): void {
-        if (this.amountTransfer == null || this.numberCard == null) {
+        if (this.amountTransfer == null) {
 
             this.emptyField = true;
 
         } else {
 
-            this.user.numberCard = this.numberCard;
+
             this.user.amountTransfer = this.amountTransfer;
             this.billingStorage.add(this.usersService.transferMoney(this.user,
                 this.user.id)
@@ -71,7 +68,6 @@ export class BillingaccountComponent implements OnInit, OnDestroy {
                 ));
         }
 
-        this.numberCard = null;
         this.amountTransfer = null;
     }
 

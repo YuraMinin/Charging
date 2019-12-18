@@ -6,8 +6,9 @@
     <div class="d-flex">
         <div class="card m-3">
             <div class="card-body">
+                <div><label>Number card: <b>{{User?.billingAccounts[0].numberCard}}</b></label></div>
                 <div class="balance">
-                    <label>Balance on account: <b>{{User?.billingAccounts[0].amount}}</b></label>
+                    <label>Balance on account: <b>{{User?.billingAccounts[0].amount}} $</b></label>
                 </div>
             </div>
         </div>
@@ -17,8 +18,6 @@
     <span class="badge badge-warning mt-3 ml-3">Transfer of money</span>
     <div class="d-flex">
         <div class="shadow-lg p-4 mb-4 bg-white ml-3 mr-3">
-            <input [(ngModel)]="numberCard" [textMask]="{mask: mask}" type="text" name="number-card"
-                   placeholder="Input number of card" class="form-control form-control">
             <input [(ngModel)]="amountTransfer" type="number" name="number-card"
                    placeholder="Amount" class="form-control form-controlmb-3 my-3">
             <button class="btn btn-success" type="button" (click)="transferMoney()">Transfer</button>

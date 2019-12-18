@@ -41,6 +41,7 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
             this.userService.updateSubscriptions();
             this.find = this.findSubscriptions;
             this.page = 1;
+            this.selectedPage = this.page;
         }
 
         this.subscriptionStorage.add(this.userService.getUserSubscription(this.userService.idUser,
