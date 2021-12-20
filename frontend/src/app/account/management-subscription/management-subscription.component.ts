@@ -14,7 +14,7 @@ export class ManagementSubscriptionComponent implements OnInit {
 
     @Input() subscription: Subscriptions;
     @Input() user: Users;
-    private periodOn = 1;
+    periodOn = 1;
 
     ngOnInit() {}
 

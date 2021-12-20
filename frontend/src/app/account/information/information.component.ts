@@ -11,10 +11,10 @@ import {Subscription} from 'rxjs';
 export class InformationComponent implements OnInit, OnDestroy {
 
     nameComponent = 'Account';
-    private userStorage: Subscription = new Subscription();
-    private user: Users;
-    private idInterval;
-    private error: boolean;
+    userStorage: Subscription = new Subscription();
+    user: Users;
+    idInterval;
+    error: boolean;
 
     constructor(private userService: UserService) {
     }

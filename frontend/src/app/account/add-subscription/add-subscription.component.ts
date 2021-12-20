@@ -11,7 +11,7 @@ export class AddSubscriptionComponent implements OnInit {
 
   FormAddSub: FormGroup;
 
-  constructor(private userService: UserService) {
+  constructor(public userService: UserService) {
     this.FormAddSub = new FormGroup({
 
         SubscriptionName: new FormControl('', Validators.required),

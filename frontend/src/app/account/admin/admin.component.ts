@@ -11,17 +11,17 @@ import {Subscription} from 'rxjs';
 export class AdminComponent implements OnInit, OnDestroy {
 
     nameComponent = 'Admin Account';
-    private users: Users[];
-    private usersStorage: Subscription = new Subscription();
-    private count: number;
-    private page = 1;
-    private usersPerPage = 7;
-    private selectedPage = 1;
-    private error: boolean = false;
+    users: Users[];
+    usersStorage: Subscription = new Subscription();
+    count: number;
+    page = 1;
+    usersPerPage = 7;
+    selectedPage = 1;
+    error: boolean = false;
 
-    private idInterval;
+    idInterval;
 
-    constructor(private userService: UserService) {
+    constructor(public userService: UserService) {
     }
 
     ngOnInit() {

@@ -12,15 +12,15 @@ export class BillingaccountComponent implements OnInit, OnDestroy {
 
     nameComponent = 'Billing Account';
 
-    private emptyField: boolean;
-    private amountTransfer: number;
-    private correctData = true;
-    private billingStorage: Subscription = new Subscription();
+    emptyField: boolean;
+    amountTransfer: number;
+    correctData = true;
+    billingStorage: Subscription = new Subscription();
     //private user: Users;
-    private error: boolean;
+    error: boolean;
 
 
-    constructor(private usersService: UserService) {}
+    constructor(public usersService: UserService) {}
 
     @Input() user: Users;
 

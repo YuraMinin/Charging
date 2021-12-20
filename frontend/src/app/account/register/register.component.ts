@@ -13,15 +13,15 @@ import {AuthService} from "../auth.service";
     styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-    private firstName: string;
-    private lastName: string;
-    private numberCard: string;
-    private newLogin: string;
-    private newEmail: string;
-    private newPassword: string;
-    private canRegister: boolean;
-    private failedLogin = false;
-    private mask = [/[1-9]/, /\d/, /\d/, /\d/,' ', /\d/, /\d/, /\d/, /\d/,' ', /\d/, /\d/, /\d/, /\d/,' ',
+    firstName: string;
+    lastName: string;
+    numberCard: string;
+    newLogin: string;
+    newEmail: string;
+    newPassword: string;
+    canRegister: boolean;
+    failedLogin = false;
+    mask = [/[1-9]/, /\d/, /\d/, /\d/,' ', /\d/, /\d/, /\d/, /\d/,' ', /\d/, /\d/, /\d/, /\d/,' ',
         /\d/, /\d/, /\d/, /\d/];
     myForm: FormGroup;
 
@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
 
     ngOnInit() {}
 
-    private passwordOK(pass1: any, pass2: any): boolean {
+    passwordOK(pass1: any, pass2: any): boolean {
         if (pass1 === pass2) {
             this.canRegister = true;
             return false;

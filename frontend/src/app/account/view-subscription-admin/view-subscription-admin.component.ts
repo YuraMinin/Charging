@@ -13,14 +13,14 @@ import {Subscriptions} from '../../model/Subscriptions';
 export class ViewSubscriptionAdminComponent implements OnInit, OnDestroy {
 
     id: number;
-    private subscriptionStorage: Subscription = new Subscription();
-    private subscriptionsUser: Subscriptions[];
-    private productPerPage = 10;
-    private selectedPage = 1;
-    private page = 1;
-    private count: number;
+    subscriptionStorage: Subscription = new Subscription();
+    subscriptionsUser: Subscriptions[];
+    productPerPage = 10;
+    selectedPage = 1;
+    page = 1;
+    count: number;
 
-    private error: boolean;
+    error: boolean;
 
     constructor(private userService: UserService,
                 private activatedRoute: ActivatedRoute) {

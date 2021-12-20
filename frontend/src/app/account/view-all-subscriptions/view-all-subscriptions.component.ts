@@ -12,13 +12,13 @@ import {catchError} from "rxjs/operators";
 })
 export class ViewAllSubscriptionsComponent implements OnInit, OnDestroy {
 
-    private subscriptionStorage: Subscription = new Subscription();
-    private subscriptions: Subscriptions[];
-    private productPerPage = 10;
-    private selectedPage = 1;
-    private page = 1;
-    private count: number;
-    private error: boolean = false;
+    subscriptionStorage: Subscription = new Subscription();
+    subscriptions: Subscriptions[];
+    productPerPage = 10;
+    selectedPage = 1;
+    page = 1;
+    count: number;
+    error: boolean = false;
 
 
     constructor(private userService: UserService) {}

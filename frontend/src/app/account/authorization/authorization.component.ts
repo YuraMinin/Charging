@@ -13,12 +13,12 @@ import {AuthService} from "../auth.service";
 })
 export class AuthorizationComponent implements OnInit {
 
-    private login: string;
-    private passwd: string;
-    private emptyField;
-    private failedData;
-    private error: boolean;
-    private buttonReturn = false;
+    login: string;
+    passwd: string;
+    emptyField;
+    failedData;
+    error: boolean;
+    buttonReturn = false;
 
     constructor(private router: Router, private userService: UserService, private authService: AuthService) {
     }

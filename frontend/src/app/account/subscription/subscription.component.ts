@@ -13,16 +13,16 @@ export class SubscriptionComponent implements OnInit, OnDestroy {
 
     public productPerPage = 5;
     public selectedPage = 1;
-    private subscriptions: Subscriptions[];
+    subscriptions: Subscriptions[];
     //private user: Users;
-    private subscriptionStorage: Subscription = new Subscription();
-    private count: number;
-    private page = 1;
-    private findSubscriptions = "";
-    private find = "";
+    subscriptionStorage: Subscription = new Subscription();
+    count: number;
+    page = 1;
+    findSubscriptions = "";
+    find = "";
 
-    private idInterval;
-    private error: boolean;
+    idInterval;
+    error: boolean;
 
     @Input() user: Users;
 
